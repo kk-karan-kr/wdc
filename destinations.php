@@ -1,3 +1,6 @@
+<?php
+$currentPage = 'destinations';
+?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -10,37 +13,7 @@
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body id="top">
-    <header class="site-header" role="banner" aria-label="Top header">
-      <div class="site-header__brand" aria-hidden="false">
-        <a href="index.html#top" aria-label="Home">
-          <img src="./assets/changes/WDC Logo Open File-05.svg" class="site-header__brand-logo" alt="The Wedding Design Company logo" />
-        </a>
-      </div>
-
-      <!-- Mobile menu toggle -->
-      <button id="siteHeaderToggle" class="site-header__toggle" aria-expanded="false" aria-label="Open navigation menu">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-
-      <nav id="primaryNavigation" class="site-header__nav" role="navigation" aria-label="Primary navigation">
-        <a href="index.html#top">Home</a>
-        <a href="team.html">Our Team</a>
-        <div class="nav-item nav-services">
-          <a href="services.html" class="is-active" aria-haspopup="true" aria-expanded="true">Our Services</a>
-          <button class="nav-item__toggle" aria-label="Toggle services submenu" aria-expanded="true">&#9662;</button>
-          <ul class="nav-submenu" role="menu" aria-label="Services submenu">
-            <li><a href="services.html#wedding-planning">Wedding Planning and Project Management</a></li>
-            <li><a href="services.html#design-decor">Design and Decor</a></li>
-            <li><a href="services.html#entertainment">Entertainment and experiences</a></li>
-            <li><a href="destinations.html">Destinations</a></li>
-          </ul>
-        </div>
-        <a href="news.html">IN THE NEWS</a>
-        <a href="contact.html">Contact Us</a>
-      </nav>
-    </header>
+    <?php include './header.php'; ?>
 
     <main style="margin-top:0">
     <div class="about-hero" role="region" aria-label="Destinations hero">
@@ -232,68 +205,7 @@
       </div>
     </section>
     </main>
-    <footer class="site-footer">
-      <div class="site-footer__brand">
-        <div class="site-footer__logo-wrap">
-          <img
-            class="site-footer__logo-image"
-            src="./assets/changes/WDC Logo Open File-05.svg"
-            alt="The Wedding Design Company logo"
-          />
-        </div>
-        <p>
-          The Wedding Design Company was conceived out of a desire to inspire
-          people to live out their fantasy by creating dream weddings.
-        </p>
-      </div>
-
-      <div class="site-footer__divider" aria-hidden="true"></div>
-
-      <div class="site-footer__columns">
-        <div>
-          <h3>Useful Links</h3>
-          <a href="index.html#top">Home</a>
-          <a href="about.html">About Us</a>
-          <a href="index.html#design-section"
-            >Gallery</a
-          >
-          <a href="contact.html#contact-section"
-            >Contact Us</a
-          >
-          <a href="index.html#signature-section"
-            >Signature</a
-          >
-        </div>
-
-        <div>
-          <h3>Social Links</h3>
-          <a href="https://www.facebook.com/p/The-Wedding-Design-Company-100069773192272/" target="_blank" rel="noreferrer noopener">Facebook</a>
-          <a href="https://www.instagram.com/theweddingdesigncompany/" target="_blank" rel="noreferrer noopener">Instagram</a>
-        </div>
-
-        <div>
-          <h3>Main Links</h3>
-          <a href="services.html#wedding-planning">Wedding Planning</a>
-          <a href="services.html#hospitality-section">Guest Experience</a>
-          <a href="index.html#design-section"
-            >Design Studio</a
-          >
-          <a href="destinations.html#destinations-section">Cities &amp; Destinations</a>
-          <a href="contact.html#contact-section">Contact Us</a>
-        </div>
-      </div>
-    </footer>
-
-    <a
-      href="#top"
-      class="scroll-top"
-      aria-label="Scroll to top"
-      title="Back to top"
-    >
-      <span class="arrow" aria-hidden="true"></span>
-    </a>
-
-    <script src="./script.js"></script>
+    <?php include './footer.php'; ?>
     <script>
       (function() {
         const tabs = document.querySelectorAll('.destination-tab');
