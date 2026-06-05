@@ -1,0 +1,82 @@
+[
+  {
+    "id": "newsstand",
+    "file": "assets/changes/OVERLAY/WDC_NEWSSTAND.svg",
+    "x": 1,
+    "y": 1487,
+    "width": 5350,
+    "height": 1151,
+    "z": 2,
+    "label": "Newsstand"
+  },
+  {
+    "id": "wdc",
+    "file": "assets/changes/OVERLAY/WDC_WDC.svg",
+    "x": 113,
+    "y": 1327,
+    "width": 5350,
+    "height": 1151,
+    "z": 3,
+    "label": "WDC Office"
+  },
+  {
+    "id": "weddingatelier",
+    "file": "assets/changes/OVERLAY/WDC_WEDDINGATELIER.svg",
+    "x": 1825,
+    "y": 1747,
+    "width": 7272,
+    "height": 1197,
+    "z": 3,
+    "label": "Wedding Atelier"
+  },
+  {
+    "id": "services",
+    "file": "assets/changes/OVERLAY/WDC_SERVICES.svg",
+    "x": 61,
+    "y": 1347,
+    "width": 5350,
+    "height": 1151,
+    "z": 2,
+    "label": "Services"
+  },
+  {
+    "id": "gallery",
+    "file": "assets/changes/OVERLAY/WDC_GALLERY.svg",
+    "x": 1825,
+    "y": 1747,
+    "width": 8041,
+    "height": 1277,
+    "z": 2,
+    "label": "Gallery"
+  },
+  {
+    "id": "contact",
+    "file": "assets/changes/OVERLAY/WDC_CONTACT.svg",
+    "x": 1825,
+    "y": 1747,
+    "width": 5915,
+    "height": 1405,
+    "z": 2,
+    "label": "Contact"
+  },
+  {
+    "id": "bg",
+    "file": "assets/changes/OVERLAY/WDC_BG_New.svg",
+    "x": -74,
+    "y": -598,
+    "width": 5680,
+    "height": 2672,
+    "z": 1,
+    "label": "Background"
+  },
+  {
+    "id": "airplane",
+    "file": "assets/changes/OVERLAY/WDC_AIRPLANE.svg",
+    "x": 1825,
+    "y": 1290,
+    "width": 6911,
+    "height": 1151,
+    "z": 4,
+    "label": "Airplane"
+  }
+]
