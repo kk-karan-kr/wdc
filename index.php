@@ -8,7 +8,7 @@ $isHomePage = true;
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta <title>The Wedding Design Company</title>
+  <title>The Wedding Design Company</title>
   <meta name='robots' content='noindex, nofollow' />
   <meta name="description"
     content="A scroll-first Wedding Design Company homepage with an animated scene map that links directly into each dedicated section." />
