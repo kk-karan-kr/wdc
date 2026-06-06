@@ -117,12 +117,16 @@ createSceneLoopClone(foreground, "scene-foreground--loop");
 const hotspotButtons = Array.from(
   document.querySelectorAll("#sceneForeground .hero-link-hotspot"),
 );
+const deferredHeroOverlayImages = Array.from(
+  document.querySelectorAll("[data-hero-overlay-src]"),
+);
 const scrollLinks = Array.from(document.querySelectorAll("[data-scroll-link]"));
 const sections = Array.from(document.querySelectorAll("[data-section]"));
 const revealNodes = Array.from(document.querySelectorAll("[data-reveal]"));
 const designPrev = document.getElementById("designPrev");
 const designNext = document.getElementById("designNext");
 const designCarousel3d = document.getElementById("designCarousel3d");
+const designSection = document.getElementById("design-section");
 
 const designStudioImages = [
   { src: "./assets/design-studio/8.jpg", alt: "Design Studio floral build" },
@@ -147,6 +151,38 @@ const DESIGN_SCROLL_NUDGE_MULTIPLIER = 6;
 let design3dIndex = 0;
 let design3dNodes = [];
 let is3dAnimating = false;
+let hasInitializedDesignCarousel = false;
+let hasLoadedDeferredHeroOverlays = false;
+
+function loadDeferredHeroOverlays() {
+  if (hasLoadedDeferredHeroOverlays || !deferredHeroOverlayImages.length) return;
+  hasLoadedDeferredHeroOverlays = true;
+
+  deferredHeroOverlayImages.forEach((image) => {
+    const src = image.dataset.heroOverlaySrc;
+    if (!src || image.getAttribute("src")) return;
+    image.src = src;
+  });
+}
+
+function scheduleDeferredHeroOverlayLoad() {
+  if (!deferredHeroOverlayImages.length) return;
+
+  const loadWhenIdle = () => {
+    if ("requestIdleCallback" in window) {
+      window.requestIdleCallback(loadDeferredHeroOverlays, { timeout: 2000 });
+    } else {
+      window.setTimeout(loadDeferredHeroOverlays, 1200);
+    }
+  };
+
+  if (document.readyState === "complete") {
+    loadWhenIdle();
+    return;
+  }
+
+  window.addEventListener("load", loadWhenIdle, { once: true });
+}
 
 function renderDesignCarousel3d() {
   if (!designCarousel3d || !designStudioImages.length) return;
@@ -208,8 +244,49 @@ function preloadDesignStudioImages() {
   });
 }
 
+function initDesignCarousel3d() {
+  if (hasInitializedDesignCarousel || !designCarousel3d) return;
+  hasInitializedDesignCarousel = true;
+  preloadDesignStudioImages();
+  renderDesignCarousel3d();
+  syncdesignCarousel3dMetrics();
+  startDesign3dAutoAdvance();
+}
+
+function scheduleDesignCarousel3dInit() {
+  if (!designCarousel3d) return;
+
+  if (!("IntersectionObserver" in window) || !designSection) {
+    if ("requestIdleCallback" in window) {
+      window.requestIdleCallback(() => initDesignCarousel3d(), { timeout: 1500 });
+    } else {
+      window.setTimeout(initDesignCarousel3d, 1200);
+    }
+    return;
+  }
+
+  const designInitObserver = new IntersectionObserver(
+    (entries) => {
+      if (!entries.some((entry) => entry.isIntersecting)) return;
+      initDesignCarousel3d();
+      designInitObserver.disconnect();
+    },
+    {
+      rootMargin: "300px 0px",
+      threshold: 0.01,
+    },
+  );
+
+  designInitObserver.observe(designSection);
+}
+
 function startDesign3dAutoAdvance() {
-  if (prefersReducedMotion.matches || design3dAutoActive || designStudioImages.length <= 1) return;
+  if (
+    !hasInitializedDesignCarousel ||
+    prefersReducedMotion.matches ||
+    design3dAutoActive ||
+    designStudioImages.length <= 1
+  ) return;
   design3dAutoActive = true;
   design3dAutoElapsed = 0;
   // Initialize timer to current time to avoid large jump on first tick
@@ -979,6 +1056,8 @@ window.addEventListener("resize", () => {
 
 hotspotButtons.forEach((button) => {
   button.addEventListener("mouseenter", () => {
+    loadDeferredHeroOverlays();
+
     if (!supportsHover.matches) return;
 
     pauseScene();
@@ -986,6 +1065,7 @@ hotspotButtons.forEach((button) => {
   });
 
   button.addEventListener("focus", () => {
+    loadDeferredHeroOverlays();
     setActiveHotspot(button.dataset.hotspot);
 
     if (!lastInteractionWasKeyboard) return;
@@ -994,6 +1074,7 @@ hotspotButtons.forEach((button) => {
   });
 
   button.addEventListener("click", (event) => {
+    loadDeferredHeroOverlays();
     setActiveHotspot(button.dataset.hotspot);
 
     const targetId = button.dataset.target;
@@ -1007,6 +1088,8 @@ hotspotButtons.forEach((button) => {
     scheduleScenePlaybackSync();
   });
 });
+
+scheduleDeferredHeroOverlayLoad();
 
 designPrev?.addEventListener("click", () => {
   moveDesign3d(-1);
@@ -1634,15 +1717,12 @@ if ("IntersectionObserver" in window) {
   revealNodes.forEach((node) => node.classList.add("is-visible"));
 }
 
-preloadDesignStudioImages();
 updateSceneMetrics();
-// Initialize 3D carousel instead of carousel-based carousel
-renderDesignCarousel3d();
 if (designCarousel3d) {
   designCarousel3d.addEventListener('pointerdown', on3dPointerDown);
   designCarousel3d.addEventListener('touchstart', on3dPointerDown, {passive:false});
 }
-startDesign3dAutoAdvance();
+scheduleDesignCarousel3dInit();
 
 if (revealNodes.length && !("IntersectionObserver" in window)) {
   revealNodes.forEach((node) => node.classList.add("is-visible"));

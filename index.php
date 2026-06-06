@@ -11,9 +11,10 @@ $isHomePage = true;
   <title>The Wedding Design Company</title>
   <meta name='robots' content='noindex, nofollow' />
   <meta name="description"
-    content="A scroll-first Wedding Design Company homepage with an animated scene map that links directly into each dedicated section." />
+    content="Plan your dream wedding with WDC India. Expert luxury wedding planners delivering bespoke design, guest experiences, global logistics, and seamless events." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" as="image" href="./assets/changes/WDC_BACKGROUND.png" fetchpriority="high" />
   <link
     href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
     rel="stylesheet" />
@@ -32,8 +33,9 @@ $isHomePage = true;
       <div class="hero__scene scene-screen" id="sceneScreen">
         <div class="scene-stage" id="sceneStage">
           <div class="scene-panorama" id="scenePanorama">
-            <img class="scene-panorama__bg" src="./assets/changes/WDC_BACKGROUND.svg"
-              alt="Illustrated Wedding Design Company streetscape" />
+            <img class="scene-panorama__bg" src="./assets/changes/WDC_BACKGROUND.png"
+              alt="Illustrated Wedding Design Company streetscape" width="2200" height="1557"
+              fetchpriority="high" decoding="async" />
           </div>
 
           <!-- Foreground overlay -->
@@ -41,53 +43,60 @@ $isHomePage = true;
           <div class="scene-foreground" id="sceneForeground">
             <a class="newsstand-hotspot hero-link-hotspot" data-title="Media & News"
               data-hotspot="newsstand" href="news.php" aria-label="Open Media and News page"></a>
-            <img class="scene-foreground__img" src="./assets/changes//OVERLAY/WDC_NEWSTAND_OVERLAY.svg"
-              alt="WDC overlay elements" />
+            <img class="scene-foreground__img"
+              data-hero-overlay-src="./assets/changes/OVERLAY/WDC_NEWSTAND_OVERLAY.svg"
+              alt="WDC overlay elements" decoding="async" />
 
             <!-- WDC office hotspot + overlay (mirrors newsstand behavior) -->
             <a class="wdc-hotspot hero-link-hotspot" data-title="About Us" data-hotspot="wdc"
               data-target="wdc-section" href="#wdc-section" aria-label="Jump to About Us section"></a>
-            <img class="scene-foreground__img--wdc" src="./assets/changes/OVERLAY/WDC_WDC.svg"
-              alt="WDC office overlay elements" />
+            <img class="scene-foreground__img--wdc"
+              data-hero-overlay-src="./assets/changes/OVERLAY/WDC_WDC.svg"
+              alt="WDC office overlay elements" decoding="async" />
             <!-- WDC services hotspot + overlay (mirrors newsstand behavior) -->
             <a class="wdc-services-hotspot hero-link-hotspot" data-title="Our Services"
               data-hotspot="services" data-target="service-section" href="#service-section"
               aria-label="Jump to Our Services section"></a>
-            <img class="scene-foreground__img--wdc-services" src="./assets/changes/OVERLAY/WDC_SERVICES.svg"
-              alt="WDC services overlay elements" />
+            <img class="scene-foreground__img--wdc-services"
+              data-hero-overlay-src="./assets/changes/OVERLAY/WDC_SERVICES.svg"
+              alt="WDC services overlay elements" decoding="async" />
 
             <!-- Contact hotspot + overlay -->
             <a class="contact-hotspot hero-link-hotspot" data-title="Contact Us" data-hotspot="contact"
               data-target="contact-section" href="#contact-section"
               aria-label="Jump to Contact Us section"></a>
-            <img class="scene-foreground__img--contact" src="./assets/changes/OVERLAY/WDC_CONTACT.svg"
-              alt="Contact overlay elements" />
+            <img class="scene-foreground__img--contact"
+              data-hero-overlay-src="./assets/changes/OVERLAY/WDC_CONTACT.svg"
+              alt="Contact overlay elements" decoding="async" />
 
             <!-- Airplane hotspot + overlay -->
             <a class="airplane-hotspot hero-link-hotspot" data-title="Destinations"
               data-hotspot="destinations" href="destinations.php#destinations-section"
               aria-label="Open Destinations section"></a>
-            <img class="scene-foreground__img--airplane" src="./assets/changes/OVERLAY/WDC_AIRPLANE.svg"
-              alt="Airplane overlay elements" />
+            <img class="scene-foreground__img--airplane"
+              data-hero-overlay-src="./assets/changes/OVERLAY/WDC_AIRPLANE.svg"
+              alt="Airplane overlay elements" decoding="async" />
 
             <!-- Wedding Atelier hotspot + overlay -->
             <a class="atelier-hotspot hero-link-hotspot" data-title="Wedding Atelier" data-hotspot="atelier"
               data-target="design-section" href="#design-section"
               aria-label="Jump to Wedding Atelier content"></a>
             <img class="scene-foreground__img--atelier"
-              src="./assets/changes/OVERLAY/WDC_WEDDINGATELIER.svg"
-              alt="Wedding Atelier overlay elements" />
+              data-hero-overlay-src="./assets/changes/OVERLAY/WDC_WEDDINGATELIER.svg"
+              alt="Wedding Atelier overlay elements" decoding="async" />
 
             <!-- Gallery hotspot + overlay -->
             <a class="gallery-hotspot hero-link-hotspot" data-title="Design Studio" data-hotspot="gallery"
               data-target="design-section" href="#design-section"
               aria-label="Jump to Design Studio section"></a>
-            <img class="scene-foreground__img--gallery" src="./assets/changes/OVERLAY/WDC_GALLERY.svg"
-              alt="Gallery overlay elements" />
+            <img class="scene-foreground__img--gallery"
+              data-hero-overlay-src="./assets/changes/OVERLAY/WDC_GALLERY.svg"
+              alt="Gallery overlay elements" decoding="async" />
 
             <!-- Baraat parallax overlay (moves slightly faster than background) -->
-            <img class="scene-foreground__img--baraat" src="./assets/changes/WDC_BARAAT.svg"
-              alt="Baraat parade overlay elements" aria-hidden="true" />
+            <img class="scene-foreground__img--baraat" src="./assets/changes/WDC_BARAAT.png"
+              alt="Baraat parade overlay elements" aria-hidden="true" width="2200" height="1557"
+              fetchpriority="low" decoding="async" />
           </div>
         </div>
       </div>
@@ -112,7 +121,8 @@ $isHomePage = true;
         </div>
 
         <figure class="section-about__art" data-reveal>
-          <img src="./assets/oldassets/WDC-Website-illustrations--12.png" alt="WDC studio illustration" />
+          <img src="./assets/oldassets/WDC-Website-illustrations--12.png" alt="WDC studio illustration"
+            loading="lazy" decoding="async" />
         </figure>
       </div>
     </section>
@@ -177,7 +187,8 @@ $isHomePage = true;
       <div class="services-mobile-carousel" id="services-mobile-carousel">
         <div class="section-services__item">
           <div class="section-services__image service-image-animate">
-            <img src="./assets/oldassets/graphic_fb.png" alt="Wedding Planning" />
+            <img src="./assets/oldassets/graphic_fb.png" alt="Wedding Planning" loading="lazy"
+              decoding="async" />
           </div>
           <div class="section-services__content">
             <h4 class="service-title-animate">
@@ -210,7 +221,8 @@ $isHomePage = true;
             </p>
           </div>
           <div class="section-services__image service-image-animate">
-            <img src="./assets/changes/our_services/service_designdecor.png" alt="Design and Decor" />
+            <img src="./assets/changes/our_services/service_designdecor.png" alt="Design and Decor"
+              loading="lazy" decoding="async" />
           </div>
         </div>
         <div class="section-services__ribbon">
@@ -219,7 +231,7 @@ $isHomePage = true;
         <div class="section-services__item">
           <div class="section-services__image service-image-animate">
             <img src="./assets/changes/our_services/service_entertainment.png"
-              alt="Entertainment and Experiences" />
+              alt="Entertainment and Experiences" loading="lazy" decoding="async" />
           </div>
           <div class="section-services__content">
             <h4 class="service-title-animate">
@@ -268,25 +280,25 @@ $isHomePage = true;
 
         <div class="design-mobile-carousel" id="design-mobile-carousel" data-reveal>
           <div class="design-mobile-card"><img src="./assets/design-studio/8.jpg"
-              alt="Design Studio floral build" loading="lazy"></div>
+              alt="Design Studio floral build" loading="lazy" decoding="async"></div>
           <div class="design-mobile-card"><img src="./assets/design-studio/12.jpg"
-              alt="Design Studio ceremony installation" loading="lazy"></div>
+              alt="Design Studio ceremony installation" loading="lazy" decoding="async"></div>
           <div class="design-mobile-card"><img src="./assets/design-studio/10.jpg"
-              alt="Design Studio event detail" loading="lazy"></div>
+              alt="Design Studio event detail" loading="lazy" decoding="async"></div>
           <div class="design-mobile-card"><img src="./assets/design-studio/4.jpg"
-              alt="Design Studio tablescape concept" loading="lazy"></div>
+              alt="Design Studio tablescape concept" loading="lazy" decoding="async"></div>
           <div class="design-mobile-card"><img src="./assets/design-studio/5.jpg"
-              alt="Design Studio decor styling sample" loading="lazy"></div>
+              alt="Design Studio decor styling sample" loading="lazy" decoding="async"></div>
           <div class="design-mobile-card"><img src="./assets/design-studio/6.jpg"
-              alt="Design Studio fabric and floral arrangement" loading="lazy"></div>
+              alt="Design Studio fabric and floral arrangement" loading="lazy" decoding="async"></div>
           <div class="design-mobile-card"><img src="./assets/design-studio/7.jpg"
-              alt="Design Studio installation mockup" loading="lazy"></div>
+              alt="Design Studio installation mockup" loading="lazy" decoding="async"></div>
           <div class="design-mobile-card"><img src="./assets/design-studio/1.jpg"
-              alt="Design Studio venue styling board" loading="lazy"></div>
+              alt="Design Studio venue styling board" loading="lazy" decoding="async"></div>
           <div class="design-mobile-card"><img src="./assets/design-studio/9.jpg"
-              alt="Design Studio stage composition" loading="lazy"></div>
+              alt="Design Studio stage composition" loading="lazy" decoding="async"></div>
           <div class="design-mobile-card"><img src="./assets/design-studio/3.jpg"
-              alt="Design Studio event environment study" loading="lazy"></div>
+              alt="Design Studio event environment study" loading="lazy" decoding="async"></div>
         </div>
 
         <div class="carousel-dots" id="design-carousel-dots" style="margin-top: -1rem;">
@@ -333,7 +345,8 @@ $isHomePage = true;
 
         <div class="section-contact__details" data-reveal>
           <figure class="section-contact__map">
-            <img src="./assets/oldassets/contact-map.png" alt="Studio location map preview" />
+            <img src="./assets/oldassets/contact-map.png" alt="Studio location map preview" loading="lazy"
+              decoding="async" />
           </figure>
 
           <div class="section-contact__detail-copy">
@@ -356,7 +369,8 @@ $isHomePage = true;
         </div>
       </div>
       <figure class="section-contact__art" data-reveal>
-        <img src="./assets/oldassets/graphic_contact.png" alt="Contact desk illustration" />
+        <img src="./assets/oldassets/graphic_contact.png" alt="Contact desk illustration" loading="lazy"
+          decoding="async" />
       </figure>
     </section>
   </main>
