@@ -93,7 +93,7 @@ $isHomePage = true;
               data-hero-overlay-src="./assets/changes/OVERLAY/WDC_GALLERY.svg"
               alt="Gallery overlay elements" decoding="async" />
 
-            <!-- Baraat parallax overlay (moves slightly faster than background) -->
+            <!-- Baraat parallax overlay -->
             <img class="scene-foreground__img--baraat" src="./assets/changes/WDC_BARAAT.png"
               alt="Baraat parade overlay elements" aria-hidden="true" width="2200" height="1557"
               fetchpriority="low" decoding="async" />

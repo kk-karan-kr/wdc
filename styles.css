@@ -1500,6 +1500,11 @@ main {
 .scene-foreground--loop {
   left: var(--scene-loop-offset-fg);
   pointer-events: none;
+  opacity: 0;
+}
+
+.scene-screen.is-foreground-loop-ready .scene-foreground--loop {
+  opacity: 1;
 }
 
 /* Show overlay when hovered (or when focus enters it for accessibility). */
@@ -1948,6 +1953,13 @@ main {
   /* Ensure stage doesn't crop by keeping left origin at 0 for small screens */
   .scene-stage {
     left: 0;
+  }
+
+  .scene-foreground__img--baraat {
+    will-change: auto;
+    contain: paint;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
   }
 }
 

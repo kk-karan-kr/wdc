@@ -112,7 +112,7 @@ const primaryNavigation = document.getElementById("primaryNavigation");
 createSceneLoopClone(panorama, "scene-panorama--loop");
 // Ensure the foreground overlay is cloned as well so it repeats with the panorama
 // This keeps the `wdcoverlay.svg` visible across the entire looping scene
-createSceneLoopClone(foreground, "scene-foreground--loop");
+const foregroundLoopClone = createSceneLoopClone(foreground, "scene-foreground--loop");
 
 const hotspotButtons = Array.from(
   document.querySelectorAll("#sceneForeground .hero-link-hotspot"),
@@ -153,6 +153,8 @@ let design3dNodes = [];
 let is3dAnimating = false;
 let hasInitializedDesignCarousel = false;
 let hasLoadedDeferredHeroOverlays = false;
+let baraatMobileRepaintTimer = null;
+let foregroundLoopReadyTimer = null;
 
 function loadDeferredHeroOverlays() {
   if (hasLoadedDeferredHeroOverlays || !deferredHeroOverlayImages.length) return;
@@ -182,6 +184,75 @@ function scheduleDeferredHeroOverlayLoad() {
   }
 
   window.addEventListener("load", loadWhenIdle, { once: true });
+}
+
+function setForegroundLoopReadyState(isReady) {
+  if (!sceneScreen || !foregroundLoopClone) return;
+  sceneScreen.classList.toggle("is-foreground-loop-ready", isReady);
+}
+
+function scheduleForegroundLoopReady() {
+  if (!sceneScreen || !foregroundLoopClone) return;
+
+  const panoramaImgEl = panorama?.querySelector(".scene-panorama__bg");
+  const baraatImgEl = foreground?.querySelector(".scene-foreground__img--baraat");
+  const imagesReady = Boolean(panoramaImgEl?.complete && baraatImgEl?.complete);
+
+  window.clearTimeout(foregroundLoopReadyTimer);
+
+  if (!imagesReady) {
+    setForegroundLoopReadyState(false);
+    return;
+  }
+
+  foregroundLoopReadyTimer = window.setTimeout(() => {
+    foregroundLoopReadyTimer = null;
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => {
+        setForegroundLoopReadyState(true);
+      });
+    });
+  }, 60);
+}
+
+function forceMobileBaraatRepaint() {
+  const isCompactScreen = window.matchMedia("(max-width: 820px)").matches;
+  if (!isCompactScreen) return;
+
+  const baraatEls = document.querySelectorAll(".scene-foreground__img--baraat");
+  if (!baraatEls.length) return;
+
+  baraatEls.forEach((el) => {
+    if (!el.complete) {
+      el.addEventListener("load", () => scheduleMobileBaraatRepaint(0), { once: true });
+      return;
+    }
+
+    el.style.visibility = "hidden";
+    void el.offsetHeight;
+
+    window.requestAnimationFrame(() => {
+      el.style.visibility = "visible";
+      el.style.opacity = "0.999";
+      el.style.transform = "none";
+
+      window.requestAnimationFrame(() => {
+        el.style.opacity = "";
+      });
+    });
+  });
+}
+
+function scheduleMobileBaraatRepaint(delay = 80) {
+  window.clearTimeout(baraatMobileRepaintTimer);
+  baraatMobileRepaintTimer = window.setTimeout(() => {
+    baraatMobileRepaintTimer = null;
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => {
+        forceMobileBaraatRepaint();
+      });
+    });
+  }, delay);
 }
 
 function renderDesignCarousel3d() {
@@ -602,6 +673,15 @@ function applyBaraatParallax(backgroundShift) {
   if (!sceneScreen) return;
   const baraatEls = document.querySelectorAll('.scene-foreground__img--baraat');
   if (!baraatEls || baraatEls.length === 0) return;
+
+  const isCompactScreen = window.matchMedia("(max-width: 820px)").matches;
+  if (isCompactScreen) {
+    baraatEls.forEach((el) => {
+      el.style.transform = "none";
+    });
+    return;
+  }
+
   const foregroundShift = backgroundShift * FOREGROUND_SHIFT_RATIO;
   // compute only the additional shift to apply on top of the foreground transform
   const extraShift = foregroundShift * (BARAAT_SPEED_MULT - 1);
@@ -619,7 +699,7 @@ function applyBaraatParallax(backgroundShift) {
     const isClone = index === 1;
     const base = BARAAT_RIGHT_SHIFT + (isClone ? cloneExtraOffset : 0);
     const total = extraShift + base;
-    el.style.transform = `translate3d(${total.toFixed(2)}px, 0, 0)`;
+    el.style.transform = `translateX(${total.toFixed(2)}px)`;
   });
 }
 
@@ -746,6 +826,8 @@ function updateSceneMetrics() {
   applySceneTravel();
   // Apply baraat parallax immediately after initial travel apply
   applyBaraatParallax(-currentTravel);
+  scheduleForegroundLoopReady();
+  scheduleMobileBaraatRepaint();
 }
 
 function setActiveHotspot(hotspotId) {
@@ -871,6 +953,20 @@ window.addEventListener("resize", () => {
   if (window.innerWidth > 920) {
     setHeaderMenuState(false);
   }
+
+  scheduleMobileBaraatRepaint(120);
+});
+
+window.addEventListener("orientationchange", () => {
+  scheduleMobileBaraatRepaint(180);
+});
+
+window.addEventListener("load", () => {
+  scheduleMobileBaraatRepaint(120);
+});
+
+window.visualViewport?.addEventListener("resize", () => {
+  scheduleMobileBaraatRepaint(120);
 });
 
 // Services submenu: accessible toggle for mobile and keyboard support
