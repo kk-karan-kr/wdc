@@ -96,6 +96,7 @@ const DRAG_TRAVEL_MULTIPLIER = 1.15;
 const SCENE_RESUME_SETTLE_MS = 140;
 const SCENE_DRAG_THRESHOLD_PX = 10;
 const SCENE_CLICK_SUPPRESS_MS = 350;
+const MOBILE_FOREGROUND_LOOP_REVEAL_TRAVEL_PX = 120;
 
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 const supportsHover = window.matchMedia("(hover: hover) and (pointer: fine)");
@@ -109,13 +110,13 @@ const siteHeader = document.querySelector(".site-header");
 const siteHeaderToggle = document.getElementById("siteHeaderToggle");
 const primaryNavigation = document.getElementById("primaryNavigation");
 
-createSceneLoopClone(panorama, "scene-panorama--loop");
+const panoramaLoopClone = createSceneLoopClone(panorama, "scene-panorama--loop");
 // Ensure the foreground overlay is cloned as well so it repeats with the panorama
 // This keeps the `wdcoverlay.svg` visible across the entire looping scene
 const foregroundLoopClone = createSceneLoopClone(foreground, "scene-foreground--loop");
 
 const hotspotButtons = Array.from(
-  document.querySelectorAll("#sceneForeground .hero-link-hotspot"),
+  document.querySelectorAll(".scene-foreground .hero-link-hotspot"),
 );
 const deferredHeroOverlayImages = Array.from(
   document.querySelectorAll("[data-hero-overlay-src]"),
@@ -155,6 +156,7 @@ let hasInitializedDesignCarousel = false;
 let hasLoadedDeferredHeroOverlays = false;
 let baraatMobileRepaintTimer = null;
 let foregroundLoopReadyTimer = null;
+let foregroundLoopRevealQueued = false;
 
 function loadDeferredHeroOverlays() {
   if (hasLoadedDeferredHeroOverlays || !deferredHeroOverlayImages.length) return;
@@ -197,10 +199,25 @@ function scheduleForegroundLoopReady() {
   const panoramaImgEl = panorama?.querySelector(".scene-panorama__bg");
   const baraatImgEl = foreground?.querySelector(".scene-foreground__img--baraat");
   const imagesReady = Boolean(panoramaImgEl?.complete && baraatImgEl?.complete);
+  const isCompactScreen = window.matchMedia("(max-width: 820px)").matches;
+  const travelReady = !isCompactScreen || currentTravel >= MOBILE_FOREGROUND_LOOP_REVEAL_TRAVEL_PX;
 
   window.clearTimeout(foregroundLoopReadyTimer);
 
   if (!imagesReady) {
+    if (panoramaImgEl && !panoramaImgEl.complete && !panoramaImgEl.dataset.loopReadyBound) {
+      panoramaImgEl.dataset.loopReadyBound = "true";
+      panoramaImgEl.addEventListener("load", scheduleForegroundLoopReady, { once: true });
+    }
+    if (baraatImgEl && !baraatImgEl.complete && !baraatImgEl.dataset.loopReadyBound) {
+      baraatImgEl.dataset.loopReadyBound = "true";
+      baraatImgEl.addEventListener("load", scheduleForegroundLoopReady, { once: true });
+    }
+    setForegroundLoopReadyState(false);
+    return;
+  }
+
+  if (!travelReady) {
     setForegroundLoopReadyState(false);
     return;
   }
@@ -210,9 +227,21 @@ function scheduleForegroundLoopReady() {
     window.requestAnimationFrame(() => {
       window.requestAnimationFrame(() => {
         setForegroundLoopReadyState(true);
+        foregroundLoopRevealQueued = false;
       });
     });
   }, 60);
+}
+
+function maybeRevealForegroundLoopDuringTravel() {
+  if (!sceneScreen || !foregroundLoopClone) return;
+  if (sceneScreen.classList.contains("is-foreground-loop-ready")) return;
+  if (foregroundLoopRevealQueued) return;
+  if (!window.matchMedia("(max-width: 820px)").matches) return;
+  if (currentTravel < MOBILE_FOREGROUND_LOOP_REVEAL_TRAVEL_PX) return;
+
+  foregroundLoopRevealQueued = true;
+  scheduleForegroundLoopReady();
 }
 
 function forceMobileBaraatRepaint() {
@@ -595,6 +624,7 @@ function createSceneLoopClone(layer, cloneClass) {
 
   // The Baraat parallax offset is now computed dynamically in applyBaraatParallax
   // to ensure a perfectly seamless loop regardless of screen size.
+  return clone;
 }
 
 function setHeaderMenuState(isOpen) {
@@ -686,19 +716,10 @@ function applyBaraatParallax(backgroundShift) {
   // compute only the additional shift to apply on top of the foreground transform
   const extraShift = foregroundShift * (BARAAT_SPEED_MULT - 1);
 
-  // Calculate dynamic clone offset so the wrap is perfectly seamless.
-  // The distance the baraat travels relative to the foreground loop is exactly
-  // the loop width multiplied by the relative speed difference.
-  const loopOffsetStr = sceneScreen.style.getPropertyValue("--scene-loop-offset-fg");
-  const loopOffset = loopOffsetStr ? parseFloat(loopOffsetStr) : (SCENE_LOOP_OFFSET * FOREGROUND_SHIFT_RATIO);
-  const cloneExtraOffset = loopOffset * (BARAAT_SPEED_MULT - 1);
   const BARAAT_RIGHT_SHIFT = 150; // Base shift for original
 
-  baraatEls.forEach((el, index) => {
-    // DOM order guarantees index 0 is the original and index 1 is the loop clone.
-    const isClone = index === 1;
-    const base = BARAAT_RIGHT_SHIFT + (isClone ? cloneExtraOffset : 0);
-    const total = extraShift + base;
+  baraatEls.forEach((el) => {
+    const total = extraShift + BARAAT_RIGHT_SHIFT;
     el.style.transform = `translateX(${total.toFixed(2)}px)`;
   });
 }
@@ -729,7 +750,16 @@ function syncScenePlayback(label = "Paused for interaction") {
     return;
   }
 
-  if ((supportsHover.matches && (panorama?.matches(":hover") || foreground?.matches(":hover"))) || hasKeyboardFocusInScene()) {
+  const isHoveringSceneLayer =
+    supportsHover.matches &&
+    (
+      panorama?.matches(":hover") ||
+      foreground?.matches(":hover") ||
+      panoramaLoopClone?.matches(":hover") ||
+      foregroundLoopClone?.matches(":hover")
+    );
+
+  if (isHoveringSceneLayer || hasKeyboardFocusInScene()) {
     pauseScene(label);
     return;
   }
@@ -767,23 +797,16 @@ function updateSceneMetrics() {
   // element offsetWidth (layout width before transform) ensures the left offset
   // matches the stage coordinate system where the clone is positioned.
   let panoramaDisplayWidth = SCENE_LOOP_OFFSET;
-  let foregroundDisplayWidth = Math.round(SCENE_LOOP_OFFSET * FOREGROUND_SHIFT_RATIO);
 
   try {
     const panoramaImgEl = panorama?.querySelector('.scene-panorama__bg');
-    const foregroundImgEl = foreground?.querySelector('.scene-foreground__img');
+    const foregroundImgEl = foreground?.querySelector('.scene-foreground__img--baraat');
 
     // If we have a panorama element, prefer its offsetWidth (layout width).
     if (panorama && typeof panorama.offsetWidth === 'number' && panorama.offsetWidth > 0) {
       panoramaDisplayWidth = panorama.offsetWidth;
     } else if (panoramaImgEl && typeof panoramaImgEl.offsetWidth === 'number' && panoramaImgEl.offsetWidth > 0) {
       panoramaDisplayWidth = panoramaImgEl.offsetWidth;
-    }
-
-    if (foreground && typeof foreground.offsetWidth === 'number' && foreground.offsetWidth > 0) {
-      foregroundDisplayWidth = foreground.offsetWidth;
-    } else if (foregroundImgEl && typeof foregroundImgEl.offsetWidth === 'number' && foregroundImgEl.offsetWidth > 0) {
-      foregroundDisplayWidth = foregroundImgEl.offsetWidth;
     }
 
     // If image elements haven't loaded yet, attach listeners so we recompute once they do.
@@ -796,8 +819,10 @@ function updateSceneMetrics() {
   } catch (e) {
     // Defensive: fall back to constants
     panoramaDisplayWidth = SCENE_LOOP_OFFSET;
-    foregroundDisplayWidth = Math.round(SCENE_LOOP_OFFSET * FOREGROUND_SHIFT_RATIO);
   }
+
+  // Foreground overlays must repeat on the exact same loop boundary as the panorama.
+  const foregroundDisplayWidth = Math.round(panoramaDisplayWidth * FOREGROUND_SHIFT_RATIO);
 
   maxBackgroundShift = panoramaDisplayWidth;
 
@@ -908,6 +933,7 @@ function tick(now) {
     const travelPerMillisecond = maxBackgroundShift / AUTO_TRAVEL_DURATION_MS;
     currentTravel = wrapSceneTravel(currentTravel + travelPerMillisecond * deltaTime);
     applySceneTravel();
+    maybeRevealForegroundLoopDuringTravel();
   }
 
   if (
@@ -1218,29 +1244,26 @@ designCarousel3d?.addEventListener("focusout", () => {
 // Hover no longer pauses the hero auto-travel to keep the scene continuously moving.
 // Removed mouseenter/mouseleave handlers that previously called pauseScene()/syncScenePlayback().
 
-// Pause auto-travel when the user intentionally hovers the panorama or foreground.
-// Resume when the pointer leaves. This keeps auto-play running otherwise.
-if (panorama) {
-  panorama.addEventListener("mouseenter", () => {
-    if (!supportsHover.matches) return;
-    pauseScene("Hovering panorama");
-  });
-  panorama.addEventListener("mouseleave", () => {
-    if (!supportsHover.matches) return;
-    syncScenePlayback();
-  });
-}
+// Pause auto-travel when the user intentionally hovers any scene layer.
+// Resume when the pointer leaves that layer.
+[
+  { node: panorama, label: "Hovering panorama" },
+  { node: panoramaLoopClone, label: "Hovering panorama" },
+  { node: foreground, label: "Hovering foreground" },
+  { node: foregroundLoopClone, label: "Hovering foreground" },
+].forEach(({ node, label }) => {
+  if (!node) return;
 
-if (foreground) {
-  foreground.addEventListener("mouseenter", () => {
+  node.addEventListener("mouseenter", () => {
     if (!supportsHover.matches) return;
-    pauseScene("Hovering foreground");
+    pauseScene(label);
   });
-  foreground.addEventListener("mouseleave", () => {
+
+  node.addEventListener("mouseleave", () => {
     if (!supportsHover.matches) return;
     syncScenePlayback();
   });
-}
+});
 
 if (sceneScreen) {
   sceneScreen.addEventListener("focusin", () => {
@@ -1270,6 +1293,7 @@ if (sceneScreen) {
 
     const rect = aboutSection.getBoundingClientRect();
     const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+    const isCompactScreen = window.matchMedia("(max-width: 920px)").matches;
 
     // Compute progress so the hero is fully faded when the about section's top
     // reaches the viewport (i.e., becomes visible). We start fading when the
@@ -1284,18 +1308,29 @@ if (sceneScreen) {
     const endAt = vh - fadeRange;
     const p = clamp((startAt - distanceFromViewportTop) / (startAt - endAt), 0, 1);
 
-    // Apply smooth interpolation for opacity and slight translateY
-    const eased = p; // can replace with easing if desired
-    heroEl.style.opacity = String(1 - eased);
-    heroEl.style.transform = `translate3d(0, ${-eased * 8}px, 0) scale(${1 - eased * 0.02})`;
-
     // Keep desktop hotspots interactive on initial load. We only disable the
     // fixed hero once the first content section has visibly entered the viewport.
     const disableThreshold = Math.max(48, vh * 0.06);
     const shouldDisableHero = rect.top <= vh - disableThreshold;
+    const shouldHardHideHero = isCompactScreen && shouldDisableHero;
+    const eased = p;
+
+    if (!shouldHardHideHero && heroEl.style.display === "none") {
+      heroEl.style.display = "";
+    }
+
+    heroEl.style.opacity = shouldHardHideHero ? "0" : String(1 - eased);
+    heroEl.style.transform = shouldHardHideHero
+      ? "none"
+      : `translate3d(0, ${-eased * 8}px, 0) scale(${1 - eased * 0.02})`;
     heroEl.style.pointerEvents = shouldDisableHero ? "none" : "";
-    heroEl.style.visibility = p >= 0.985 ? "hidden" : "visible";
+    heroEl.style.visibility = shouldDisableHero ? "hidden" : "visible";
     heroEl.inert = shouldDisableHero;
+    heroEl.setAttribute("aria-hidden", shouldDisableHero ? "true" : "false");
+
+    if (shouldHardHideHero) {
+      heroEl.style.display = "none";
+    }
 
     // Only toggle the away class when fully faded or fully visible to avoid abrupt layout changes
     if (p >= 0.999) {

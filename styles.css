@@ -1368,6 +1368,7 @@ main {
   /* ensure main content stacks above the hero */
   position: relative;
   z-index: 1;
+  isolation: isolate;
   background: var(--page-bg);
 }
 
@@ -1504,6 +1505,7 @@ main {
 }
 
 .scene-screen.is-foreground-loop-ready .scene-foreground--loop {
+  pointer-events: auto;
   opacity: 1;
 }
 
