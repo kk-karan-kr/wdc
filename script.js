@@ -1312,7 +1312,8 @@ if (sceneScreen) {
     // fixed hero once the first content section has visibly entered the viewport.
     const disableThreshold = Math.max(48, vh * 0.06);
     const shouldDisableHero = rect.top <= vh - disableThreshold;
-    const shouldHardHideHero = isCompactScreen && shouldDisableHero;
+    const shouldVisuallyHideHero = p >= 0.985;
+    const shouldHardHideHero = isCompactScreen && shouldVisuallyHideHero;
     const eased = p;
 
     if (!shouldHardHideHero && heroEl.style.display === "none") {
@@ -1324,9 +1325,9 @@ if (sceneScreen) {
       ? "none"
       : `translate3d(0, ${-eased * 8}px, 0) scale(${1 - eased * 0.02})`;
     heroEl.style.pointerEvents = shouldDisableHero ? "none" : "";
-    heroEl.style.visibility = shouldDisableHero ? "hidden" : "visible";
+    heroEl.style.visibility = shouldVisuallyHideHero ? "hidden" : "visible";
     heroEl.inert = shouldDisableHero;
-    heroEl.setAttribute("aria-hidden", shouldDisableHero ? "true" : "false");
+    heroEl.setAttribute("aria-hidden", shouldVisuallyHideHero ? "true" : "false");
 
     if (shouldHardHideHero) {
       heroEl.style.display = "none";
@@ -1391,22 +1392,32 @@ if (sceneScreen) {
     if (!el) return [];
     const text = el.textContent;
     el.innerHTML = '';
-    const spans = [];
-    for (let i = 0; i < text.length; i++) {
-      const char = text[i];
-      const span = document.createElement('span');
-      if (char === ' ') {
-        span.innerHTML = '&nbsp;';
-      } else {
-        span.textContent = char;
+    const chars = [];
+    const tokens = text.split(/(\s+)/);
+
+    tokens.forEach((token) => {
+      if (!token) return;
+
+      if (/^\s+$/.test(token)) {
+        el.appendChild(document.createTextNode(token));
+        return;
       }
-      span.style.display = 'inline-block';
-      span.style.willChange = 'transform, opacity';
-      span.style.transformOrigin = 'left center';
-      el.appendChild(span);
-      spans.push(span);
-    }
-    return spans;
+
+      const word = document.createElement('span');
+      word.className = 'unmask-word';
+
+      for (let i = 0; i < token.length; i++) {
+        const char = document.createElement('span');
+        char.className = 'unmask-char';
+        char.textContent = token[i];
+        word.appendChild(char);
+        chars.push(char);
+      }
+
+      el.appendChild(word);
+    });
+
+    return chars;
   }
 
   function restorePlainText(el, text) {

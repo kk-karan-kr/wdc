@@ -3,19 +3,22 @@ $currentPage = 'destinations';
 ?>
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Destinations - The Wedding Design Company</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./styles.css" />
-  </head>
-  <body id="top">
-    <?php include './header.php'; ?>
 
-    <main style="margin-top:0">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Destinations - The Wedding Design Company</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="icon" href="./assets/changes/wdc-favicon-transparent.png" sizes="any" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+
+<body id="top">
+  <?php include './header.php'; ?>
+
+  <main style="margin-top:0">
     <div class="about-hero" role="region" aria-label="Destinations hero">
       <h1>Destinations</h1>
     </div>
@@ -41,8 +44,7 @@ $currentPage = 'destinations';
             <div class="destination-map__frame">
               <img
                 src="./assets/changes/MAP/map-without-paags-india.png"
-                alt="Indian Destinations Map"
-              />
+                alt="Indian Destinations Map" />
               <div class="destination-map__points" aria-label="Indian city locations">
                 <button class="destination-city-point" id="delhi-ncr" style="left: 50.9%; top: 32.38%;" type="button" aria-label="Delhi NCR">
                   <img src="./assets/changes/MAP/BARAATMAN.svg" alt="" aria-hidden="true" />
@@ -107,8 +109,7 @@ $currentPage = 'destinations';
             <div class="destination-map__frame">
               <img
                 src="./assets/changes/MAP/internationl-map.png"
-                alt="International Destinations Map"
-              />
+                alt="International Destinations Map" />
               <div class="destination-map__points" aria-label="International destinations">
                 <button class="destination-country-point" id="turkey" style="left: 57.57%; top: 42.02%;" type="button" aria-label="Turkey">
                   <img src="./assets/changes/MAP/BARAATMAN.svg" alt="" aria-hidden="true" />
@@ -204,42 +205,39 @@ $currentPage = 'destinations';
         </div>
       </div>
     </section>
-    </main>
-    <?php include './footer.php'; ?>
-    <script>
-      (function() {
-        const tabs = document.querySelectorAll('.destination-tab');
-        const maps = document.querySelectorAll('.destination-map');
+  </main>
+  <?php include './footer.php'; ?>
+  <script>
+    (function() {
+      const tabs = document.querySelectorAll('.destination-tab');
+      const maps = document.querySelectorAll('.destination-map');
 
-        if (!tabs.length || !maps.length) return;
+      if (!tabs.length || !maps.length) return;
 
-        function setActiveMap(target) {
-          tabs.forEach(tab => {
-            const isActive = tab.dataset.tab === target;
-            tab.classList.toggle('active', isActive);
-            tab.setAttribute('aria-pressed', String(isActive));
-          });
-
-          maps.forEach(map => {
-            map.classList.toggle('active', map.classList.contains('destination-map--' + target));
-          });
-        }
-
+      function setActiveMap(target) {
         tabs.forEach(tab => {
-          tab.addEventListener('click', () => {
-            const target = tab.dataset.tab;
-            if (!target) return;
-            setActiveMap(target);
-          });
+          const isActive = tab.dataset.tab === target;
+          tab.classList.toggle('active', isActive);
+          tab.setAttribute('aria-pressed', String(isActive));
         });
 
-        const initialTab = document.querySelector('.destination-tab.active')?.dataset.tab || 'indian';
-        setActiveMap(initialTab);
-      })();
-    </script>
-  </body>
+        maps.forEach(map => {
+          map.classList.toggle('active', map.classList.contains('destination-map--' + target));
+        });
+      }
+
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          const target = tab.dataset.tab;
+          if (!target) return;
+          setActiveMap(target);
+        });
+      });
+
+      const initialTab = document.querySelector('.destination-tab.active')?.dataset.tab || 'indian';
+      setActiveMap(initialTab);
+    })();
+  </script>
+</body>
+
 </html>
-
-
-
-

@@ -2119,6 +2119,7 @@ body.services-page .section-faq {
   margin: 0 0 1.5rem;
   line-height: 1.1;
   letter-spacing: -0.02em;
+  text-wrap: balance;
 }
 
 .section-services__subtitle {
@@ -2128,6 +2129,7 @@ body.services-page .section-faq {
   color: var(--ink);
   line-height: 1.6;
   margin: 0 0 1rem;
+  text-wrap: pretty;
 }
 .section-services__inner {
   display: flex;
@@ -2369,6 +2371,7 @@ body.services-page .section-faq {
   color: var(--ink-soft);
   font-size: 0.98rem;
   line-height: 1.55;
+  text-wrap: pretty;
 }
 
 .section-about__copy {
@@ -2383,6 +2386,7 @@ body.services-page .section-faq {
   color: white;
   font-family: "Cormorant Garamond", serif;
   font-size: 1.3rem;
+  text-wrap: pretty;
 }
 
 .section-about__copy h2 {
@@ -2477,7 +2481,7 @@ body.services-page .section-faq {
   pointer-events: none;
 }
 
-@media screen and (max-width: 942px) {
+@media screen and (max-width: 1280px) {
   .signature-weddings-accessible {
     width: min(100%, 100%);
   }
@@ -2592,6 +2596,7 @@ body.services-page .section-faq {
   letter-spacing: 0.02em;
   overflow: hidden;
   padding-bottom: 0.1em;
+  text-wrap: balance;
 }
 
 @media screen and (max-width: 942px) {
@@ -2626,6 +2631,7 @@ body.services-page .section-faq {
   line-height: 1.6;
   overflow: hidden;
   padding-bottom: 0.1em;
+  text-wrap: pretty;
 }
 
 .unmask-text {
@@ -2636,6 +2642,17 @@ body.services-page .section-faq {
   transform-origin: left center;
   opacity: 0;
   will-change: clip-path, transform, opacity;
+}
+
+.unmask-word {
+  display: inline-flex;
+  white-space: nowrap;
+}
+
+.unmask-char {
+  display: inline-block;
+  will-change: transform, opacity;
+  transform-origin: left center;
 }
 
 .section-signature-weddings__grid {
@@ -3640,6 +3657,76 @@ body.services-page .section-faq {
   :root {
     --shell-width: calc(100vw - 2rem);
     --section-width: calc(100vw - 4rem);
+  }
+
+  .site-header__brand-logo {
+    width: clamp(6.2rem, 9vw, 7.25rem);
+  }
+
+  .site-header__nav {
+    gap: 0.35rem;
+  }
+
+  .site-header__nav a,
+  .site-header__nav .nav-item > a {
+    margin-right: 0;
+    padding: 0.55rem 0.78rem;
+    font-size: 0.88rem;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+  }
+
+  .nav-submenu li a {
+    font-size: 0.92rem;
+    line-height: 1.35;
+  }
+
+  .section-services__title {
+    font-size: clamp(2.8rem, 4.4vw, 4.75rem);
+    max-width: 12ch;
+    margin-inline: auto;
+  }
+
+  .section-services__subtitle {
+    font-size: clamp(1rem, 1.45vw, 1.2rem);
+    max-width: 52rem;
+    margin-inline: auto;
+  }
+
+  .signature-weddings-intro {
+    width: min(92vw, 70rem);
+    padding-inline: 1.5rem;
+  }
+
+  .signature-weddings-title {
+    font-size: clamp(2.9rem, 6.2vw, 4.9rem);
+    max-width: 13ch;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .signature-weddings-text {
+    font-size: clamp(1rem, 1.55vw, 1.22rem);
+    max-width: 50rem;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .section-about__copy h2,
+  .section-destinations__copy h2,
+  .section-design__copy h2 {
+    font-size: clamp(2.35rem, 4.1vw, 4rem);
+    text-wrap: balance;
+  }
+
+  .section-service__column h2,
+  .section-hospitality__copy h2,
+  .section-atelier__label h2,
+  .section-news__panel h2,
+  .section-entertainment__copy h2,
+  .section-contact__form h2 {
+    font-size: clamp(1.85rem, 2.4vw, 2.5rem);
+    text-wrap: balance;
   }
 
   .section-service__inner,
