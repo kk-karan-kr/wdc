@@ -35,9 +35,7 @@ $currentPage = 'services';
       <!-- Wedding Planning -->
       <div class="section-services__item" id="wedding-planning">
         <div class="section-services__image service-image-animate">
-          <img
-            src="./assets/oldassets/graphic_fb.png"
-            alt="Wedding Planning" />
+          <img src="./assets/oldassets/graphic_fb.png" alt="Wedding Planning" />
         </div>
         <div class="section-services__content">
           <h4 class="service-title-animate">
@@ -67,9 +65,7 @@ $currentPage = 'services';
       <!-- Design and Decor -->
       <div class="section-services__item section-services__item--reverse" id="design-decor">
         <div class="section-services__image service-image-animate">
-          <img
-            src="./assets/changes/our_services/service_designdecor.png"
-            alt="Design and Decor" />
+          <img src="./assets/changes/our_services/service_designdecor.png" alt="Design and Decor" />
         </div>
         <div class="section-services__content">
           <h4 class="service-title-animate">
@@ -99,8 +95,7 @@ $currentPage = 'services';
       <!-- Entertainment -->
       <div class="section-services__item" id="entertainment">
         <div class="section-services__image service-image-animate">
-          <img
-            src="./assets/changes/our_services/service_entertainment.png"
+          <img src="./assets/changes/our_services/service_entertainment.png"
             alt="Entertainment and Experiences" />
         </div>
         <div class="section-services__content">
@@ -127,8 +122,10 @@ $currentPage = 'services';
     <!-- The WDC Process -->
     <section class="content-section section-process" id="process-section" data-section>
       <div class="section-inner">
-        <h2 class="section-services__title" style="text-align: center; font-size: clamp(2.5rem, 4vw, 4rem);">The Journey</h2>
-        <h3 class="section-services__subtitle" style="text-align: center;">A step-by-step visual timeline of how we build worlds.</h3>
+        <h2 class="section-services__title" style="text-align: center; font-size: clamp(2.5rem, 4vw, 4rem);">The
+          Journey</h2>
+        <h3 class="section-services__subtitle" style="text-align: center;">A step-by-step visual timeline of how
+          we build worlds.</h3>
         <div class="process-grid" data-reveal>
           <div class="process-step">
             <div class="process-step__number">01</div>
@@ -158,18 +155,15 @@ $currentPage = 'services';
     <section class="content-section section-hospitality" id="hospitality-section" data-section>
       <div class="section-inner section-hospitality__inner">
         <figure class="section-hospitality__art" data-reveal>
-          <img
-            src="./assets/oldassets/hospitality.png"
-            alt="Hospitality desk illustration" />
+          <img src="./assets/oldassets/hospitality.png" alt="Hospitality desk illustration" />
         </figure>
 
         <div class="section-hospitality__copy" data-reveal>
           <h2>The Guest Experience</h2>
           <p>
-            One of the main pillars of wedding planning and management,
-            hospitality is the key to any successful wedding. At The Wedding
-            Design Company, we play our role as an extended arm of the family
-            to the hilt, acting as your personal Guest Concierge.
+            One of the main pillars of wedding planning and management, hospitality is the key to any
+            successful wedding. At The Wedding Design Company, we play our role as an extended arm of
+            the family to the hilt, acting as your personal Guest Concierge.
           </p>
 
           <ul>
@@ -185,21 +179,29 @@ $currentPage = 'services';
     <!-- Interactive FAQ -->
     <section class="content-section section-faq" id="faq-section" data-section>
       <div class="section-inner">
-        <h2 class="section-services__title" style="text-align: center; font-size: clamp(2.5rem, 4vw, 4rem);">The Navigators</h2>
-        <h3 class="section-services__subtitle" style="text-align: center; margin-bottom: 3rem;">Frequently Asked Questions</h3>
+        <h2 class="section-services__title" style="text-align: center; font-size: clamp(2.5rem, 4vw, 4rem);">The
+          Navigators</h2>
+        <h3 class="section-services__subtitle" style="text-align: center; margin-bottom: 3rem;">Frequently Asked
+          Questions</h3>
 
         <div class="faq-container" data-reveal>
           <div class="faq-item">
             <h4 class="faq-question">How far in advance should we start?</h4>
-            <p class="faq-answer">Ideally, we recommend beginning the planning process 8 to 12 months before your desired wedding date. This allows ample time for venue selection, design conceptualization, and securing top-tier entertainment.</p>
+            <p class="faq-answer">Ideally, we recommend beginning the planning process 8 to 12 months before
+              your desired wedding date. This allows ample time for venue selection, design
+              conceptualization, and securing top-tier entertainment.</p>
           </div>
           <div class="faq-item">
             <h4 class="faq-question">Do you handle destination weddings outside of India?</h4>
-            <p class="faq-answer">Absolutely. Our global logistics team is experienced in executing seamless, high-end celebrations anywhere in the world - from the royal palaces of Rajasthan to Tuscan sunsets and modern Dubai.</p>
+            <p class="faq-answer">Absolutely. Our global logistics team is experienced in executing
+              seamless, high-end celebrations anywhere in the world - from the royal palaces of Rajasthan
+              to Tuscan sunsets and modern Dubai.</p>
           </div>
           <div class="faq-item">
             <h4 class="faq-question">Can you manage guest travel and accommodations?</h4>
-            <p class="faq-answer">Yes. Through our dedicated Guest Experience concierge, we handle all aspects of hospitality, including flights, private transfers, hotel block bookings, and bespoke welcome experiences for your guests.</p>
+            <p class="faq-answer">Yes. Through our dedicated Guest Experience concierge, we handle all
+              aspects of hospitality, including flights, private transfers, hotel block bookings, and
+              bespoke welcome experiences for your guests.</p>
           </div>
         </div>
       </div>

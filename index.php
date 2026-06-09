@@ -104,15 +104,17 @@ $isHomePage = true;
         <div class="section-about__copy" data-reveal>
           <h2>The Wedding Design Company</h2>
           <p>
-            Vandana Mohan launched Backstage Productions Pvt. Ltd. in 1989.
-            Backstage Productions has partnered with leading luxury brands,
-            like Chanel, Gucci and Ferragamo to launch products in multiple
-            cities and inspire bespoke experiences.
+            The Wedding Design Company was conceived out of a desire to inspire people to live
+            out their fantasy by creating dream weddings. Vandana Mohan launched Backstage
+            Productions Pvt. Ltd. in 1989 & for over three decades, Vandana Mohan has been at
+            the forefront of experience design in India, redefining the way celebrations are imagined
+            and executed.
+
           </p>
           <p>
-            The Wedding Design Company was conceived out of a desire to
-            inspire people to live out their fantasy by creating dream
-            weddings.
+            Her pioneering vision transformed event production from a logistical exercise into an art
+            form, where storytelling, design, and emotion come together to create unforgettable
+            moments.
           </p>
         </div>
 
@@ -142,6 +144,14 @@ $isHomePage = true;
               height="100%" rx="20" pathLength="100" />
           </svg>
           <div class="accessible-bg-fill" id="sigAccessibleBg"></div>
+          <div class="affordable-content-layer" id="sigAffLayer">
+            <h3>AFFORDABLE</h3>
+            <p>
+              All our creative juices have been put to work to create your
+              dream wedding at your dream budget or what we call
+              'affordable luxury'.
+            </p>
+          </div>
           <div class="accessible-content-layer" id="sigAccLayer">
             <h3>ACCESSIBLE</h3>
             <p>
@@ -154,14 +164,6 @@ $isHomePage = true;
             <p>
               Your dreams are achievable thanks to the fabulous team that is
               behind Signature Weddings.
-            </p>
-          </div>
-          <div class="affordable-content-layer" id="sigAffLayer">
-            <h3>AFFORDABLE</h3>
-            <p>
-              All our creative juices have been put to work to create your
-              dream wedding at your dream budget or what we call
-              'affordable luxury'.
             </p>
           </div>
         </div>
@@ -193,10 +195,15 @@ $isHomePage = true;
             </h4>
             <p><strong>Your vision is the destination. We're the expert navigators.</strong></p>
             <p>
-              At WDC India, you should be the guest of honor, not the project manager. We take the complex
-              "to-do" list off your hands with a seamless roadmap leading straight to your dream day. From
-              the first site visit to the final strike, we manage the heavy lifting so you can simply
-              enjoy the view.
+              Planning a world-class wedding is a complex journey with a thousand moving parts. At WDC
+              India, we believe you should be the guest of honor at your own celebration, not the project
+              manager. We take the "to-do" list off your hands and replace it with a seamless, structured
+              roadmap that leads straight to your dream day.
+            </p>
+            <p>
+              From the first site visit to the final strike, we manage the heavy lifting so you can enjoy
+              the view.
+
             </p>
           </div>
         </div>
@@ -210,10 +217,15 @@ $isHomePage = true;
             </h4>
             <p><strong>We don't just decorate spaces. We build worlds.</strong></p>
             <p>
-              Your celebration should be a living reflection of your personality. We set trends by
-              creating "theatrical intimacy" - grand enough to take your breath away, yet personal enough
-              to feel like home. From the first mood board to the final petal, we weave a visual narrative
-              that stays with your guests forever.
+              If Project Management is the heartbeat of a wedding, Design is its soul. At WDC India, we
+              believe your celebration should be a living, breathing reflection of your personality. We
+              don't trends; we set them. Our design philosophy is about creating "theatrical intimacy" -
+              grand enough to take your breath away, yet personal enough to feel like home.
+            </p>
+            <p>
+              From the first mood board to the final floral petal, we weave a visual narrative that stays
+              with
+              your guests long after the lights go down.
             </p>
           </div>
           <div class="section-services__image service-image-animate">
@@ -233,12 +245,14 @@ $isHomePage = true;
             <h4 class="service-title-animate">
               <span>Entertainment</span> <span>&</span> <span>Experiences</span>
             </h4>
-            <p><strong>A wedding is a symphony. We ensure every note is perfect.</strong></p>
+            <p><strong>Extraordinary celebrations deserve extraordinary talent.</strong></p>
             <p>
-              The best celebrations are felt in the room's energy. We move beyond standard playlists to
-              create a living experience that engages every sense. Whether it's a soulful sunset acoustic
-              set or a high-octane performance until dawn, we curate the moments that turn your party into
-              a legend.
+              At WDC India, we source and curate exceptional artists, performers, and entertainers from
+              across the globe to create moments that are unforgettable. From internationally acclaimed
+              musicians and live bands to renowned DJs, classical ensembles, cultural performers, aerial
+              artists, dancers, celebrity acts, and immersive theatrical experiences, we bring together
+              talent that reflects the scale and spirit of your celebration.
+
             </p>
           </div>
         </div>
@@ -274,41 +288,9 @@ $isHomePage = true;
           </div>
         </div>
 
-        <div class="design-mobile-carousel" id="design-mobile-carousel" data-reveal>
-          <div class="design-mobile-card"><img src="./assets/design-studio/8.jpg"
-              alt="Design Studio floral build" loading="lazy" decoding="async"></div>
-          <div class="design-mobile-card"><img src="./assets/design-studio/12.jpg"
-              alt="Design Studio ceremony installation" loading="lazy" decoding="async"></div>
-          <div class="design-mobile-card"><img src="./assets/design-studio/10.jpg"
-              alt="Design Studio event detail" loading="lazy" decoding="async"></div>
-          <div class="design-mobile-card"><img src="./assets/design-studio/4.jpg"
-              alt="Design Studio tablescape concept" loading="lazy" decoding="async"></div>
-          <div class="design-mobile-card"><img src="./assets/design-studio/5.jpg"
-              alt="Design Studio decor styling sample" loading="lazy" decoding="async"></div>
-          <div class="design-mobile-card"><img src="./assets/design-studio/6.jpg"
-              alt="Design Studio fabric and floral arrangement" loading="lazy" decoding="async"></div>
-          <div class="design-mobile-card"><img src="./assets/design-studio/7.jpg"
-              alt="Design Studio installation mockup" loading="lazy" decoding="async"></div>
-          <div class="design-mobile-card"><img src="./assets/design-studio/1.jpg"
-              alt="Design Studio venue styling board" loading="lazy" decoding="async"></div>
-          <div class="design-mobile-card"><img src="./assets/design-studio/9.jpg"
-              alt="Design Studio stage composition" loading="lazy" decoding="async"></div>
-          <div class="design-mobile-card"><img src="./assets/design-studio/3.jpg"
-              alt="Design Studio event environment study" loading="lazy" decoding="async"></div>
-        </div>
+        <div class="design-mobile-carousel" id="design-mobile-carousel" data-reveal></div>
 
-        <div class="carousel-dots" id="design-carousel-dots" style="margin-top: -1rem;">
-          <span class="carousel-dot active"></span>
-          <span class="carousel-dot"></span>
-          <span class="carousel-dot"></span>
-          <span class="carousel-dot"></span>
-          <span class="carousel-dot"></span>
-          <span class="carousel-dot"></span>
-          <span class="carousel-dot"></span>
-          <span class="carousel-dot"></span>
-          <span class="carousel-dot"></span>
-          <span class="carousel-dot"></span>
-        </div>
+        <div class="carousel-dots" id="design-carousel-dots" style="margin-top: -1rem;"></div>
       </div>
     </section>
 
@@ -340,26 +322,25 @@ $isHomePage = true;
         </div>
 
         <div class="section-contact__details" data-reveal>
-          <figure class="section-contact__map">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3503.637409545404!2d77.24602217554074!3d28.580648875693157!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce3077cfbc8d5%3A0xaae951665b924a17!2sThe%20Wedding%20Design%20Company%20%7C%20Backstage%20Productions%20Pvt.%20Ltd!5e0!3m2!1sen!2sin!4v1780987678301!5m2!1sen!2sin"
+            width="300" height="220" style="border:0;" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <!-- <figure class="section-contact__map">
             <img src="./assets/oldassets/contact-map.png" alt="Studio location map preview" loading="lazy"
               decoding="async" />
-          </figure>
+          </figure> -->
 
           <div class="section-contact__detail-copy">
             <p>
-              Backstage Productions Pvt. Ltd.<br />
-              The Wedding Design Company 63,<br />
-              Ground Floor, Masjid Road Jangpura<br />
-              Bhogal, New Delhi - 110014 INDIA
+              The Wedding Design Company, 63, Ground Floor,
+              Masjid Road, Jangpura Bhogal, New Delhi - 110014, INDIA
             </p>
             <p>
-              <a href="tel:+911143554400">+91.11.43554400</a>
-              &nbsp;&nbsp;
-              <a href="tel:+911143554444">+91.11.43554444</a>
+              T.:<a href="tel:+917506009860 ">+91 75060 09860 </a>
             </p>
-            <p><a href="mailto:contact@backstageproductions.in">contact@backstageproductions.in</a></p>
-            <p><a href="mailto:contact@wdcindia.com">contact@wdcindia.com</a></p>
-            <p>Job Enquiry: <a href="mailto:info@backstageproductions.in">info@backstageproductions.in</a>
+            <p>E.:<a href="mailto:info@wdcindia.com">info@wdcindia.com</a></p>
+            <p>Job Enquiry: <a href="mailto:info@wdcindia.com">info@wdcindia.com</a>
             </p>
           </div>
         </div>

@@ -90,6 +90,117 @@
   height: auto;
   display: block;
 }
+
+.error-page {
+  background:
+    radial-gradient(circle at top right, rgba(162, 11, 51, 0.08), transparent 34%),
+    linear-gradient(180deg, #fffaf8 0%, #ffffff 62%);
+}
+
+.error-hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(7rem, 12vw, 9rem) 1.5rem 4rem;
+}
+
+.error-hero__frame {
+  width: min(100%, 58rem);
+  padding: clamp(2rem, 5vw, 4rem);
+  border: 1px solid rgba(162, 11, 51, 0.12);
+  border-radius: 2rem;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 24px 70px rgba(125, 10, 40, 0.08);
+  text-align: center;
+}
+
+.error-hero__eyebrow {
+  margin: 0 0 1rem;
+  color: var(--plum);
+  font-family: "Manrope", sans-serif;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+.error-hero__code {
+  margin-bottom: 1rem;
+  color: rgba(var(--plum-rgb), 0.18);
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(5rem, 18vw, 10rem);
+  font-weight: 600;
+  line-height: 0.88;
+}
+
+.error-hero h1 {
+  margin: 0 0 1rem;
+  color: var(--plum-deep);
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(2.25rem, 4.8vw, 4.5rem);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+
+.error-hero__copy {
+  margin: 0 auto;
+  max-width: 40rem;
+  color: var(--ink-soft);
+  font-family: "Manrope", sans-serif;
+  font-size: clamp(1rem, 1.7vw, 1.2rem);
+  line-height: 1.7;
+  text-wrap: pretty;
+}
+
+.error-hero__actions {
+  margin-top: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.9rem;
+}
+
+.error-hero__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 11.5rem;
+  padding: 0.9rem 1.35rem;
+  border: 1px solid rgba(162, 11, 51, 0.28);
+  border-radius: 999px;
+  background: #ffffff;
+  color: var(--plum);
+  font-family: "Manrope", sans-serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition:
+    background-color 180ms ease,
+    color 180ms ease,
+    border-color 180ms ease,
+    transform 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.error-hero__btn:hover,
+.error-hero__btn:focus-visible {
+  background: var(--plum);
+  color: #ffffff;
+  border-color: var(--plum);
+  transform: translateY(-2px);
+  box-shadow: 0 16px 30px rgba(125, 10, 40, 0.14);
+}
+
+.error-hero__btn--primary {
+  background: var(--plum);
+  color: #ffffff;
+  border-color: var(--plum);
+}
 .contact-block {
   display: flex;
   align-items: flex-start;

@@ -16,7 +16,7 @@ function onDesignPointerDown(e) {
   designCarousel3d.style.transition = 'none';
   window.addEventListener('pointermove', onDesignPointerMove);
   window.addEventListener('pointerup', onDesignPointerUp);
-  window.addEventListener('touchmove', onDesignPointerMove, {passive:false});
+  window.addEventListener('touchmove', onDesignPointerMove, { passive: false });
   window.addEventListener('touchend', onDesignPointerUp);
 }
 
@@ -128,8 +128,18 @@ const designPrev = document.getElementById("designPrev");
 const designNext = document.getElementById("designNext");
 const designCarousel3d = document.getElementById("designCarousel3d");
 const designSection = document.getElementById("design-section");
+const designMobileCarousel = document.getElementById("design-mobile-carousel");
+const designCarouselDots = document.getElementById("design-carousel-dots");
 
 const designStudioImages = [
+  { src: "./assets/design-studio/13.jpg", alt: "Design Studio floral installation detail" },
+  { src: "./assets/design-studio/14.jpg", alt: "Design Studio decor moodboard setup" },
+  { src: "./assets/design-studio/15.jpeg", alt: "Design Studio styling concept preview" },
+  { src: "./assets/design-studio/16.jpg", alt: "Design Studio event styling mockup" },
+  { src: "./assets/design-studio/17.jpg", alt: "Design Studio floral workshop scene" },
+  //{ src: "./assets/design-studio/18.jpg", alt: "Design Studio staging and decor composition" },
+  { src: "./assets/design-studio/19.jpg", alt: "Design Studio installation planning detail" },
+  { src: "./assets/design-studio/20.JPG", alt: "Design Studio visual concept board" },
   { src: "./assets/design-studio/8.jpg", alt: "Design Studio floral build" },
   { src: "./assets/design-studio/12.jpg", alt: "Design Studio ceremony installation" },
   { src: "./assets/design-studio/10.jpg", alt: "Design Studio event detail" },
@@ -157,6 +167,31 @@ let hasLoadedDeferredHeroOverlays = false;
 let baraatMobileRepaintTimer = null;
 let foregroundLoopReadyTimer = null;
 let foregroundLoopRevealQueued = false;
+
+function renderDesignMobileCarousel() {
+  if (!designMobileCarousel || !designCarouselDots || !designStudioImages.length) return;
+
+  designMobileCarousel.innerHTML = "";
+  designCarouselDots.innerHTML = "";
+
+  designStudioImages.forEach((imageData, index) => {
+    const card = document.createElement("div");
+    card.className = "design-mobile-card";
+
+    const img = document.createElement("img");
+    img.src = imageData.src;
+    img.alt = imageData.alt;
+    img.loading = "lazy";
+    img.decoding = "async";
+
+    card.appendChild(img);
+    designMobileCarousel.appendChild(card);
+
+    const dot = document.createElement("span");
+    dot.className = `carousel-dot${index === 0 ? " active" : ""}`;
+    designCarouselDots.appendChild(dot);
+  });
+}
 
 function loadDeferredHeroOverlays() {
   if (hasLoadedDeferredHeroOverlays || !deferredHeroOverlayImages.length) return;
@@ -1058,7 +1093,7 @@ window.visualViewport?.addEventListener("resize", () => {
 })();
 
 // --- Interactive Map Marker Editor (dev only) ---
-(function() {
+(function () {
   try {
     const params = new URLSearchParams(window.location.search);
     if (!params.has('map-edit')) return;
@@ -1149,7 +1184,7 @@ window.visualViewport?.addEventListener("resize", () => {
         result[key] = result[key] || {};
         const points = map.querySelectorAll('.destination-map__points button');
         points.forEach(btn => {
-          const id = btn.id || Math.random().toString(36).slice(2,8);
+          const id = btn.id || Math.random().toString(36).slice(2, 8);
           const left = btn.style.left || getComputedStyle(btn).left;
           const top = btn.style.top || getComputedStyle(btn).top;
           result[key][id] = { left, top };
@@ -1457,7 +1492,7 @@ if (sceneScreen) {
     // When the previous section completely scrolls out of view, rect.top is approximately -100vh.
     // Start fading in slightly before that (-50vh) and finish slightly after (-150vh).
     const fadeInProgress = clamp((-rect.top - (vh * 0.5)) / vh, 0, 1);
-    
+
     // Fade out as the bottom of the section scrolls up from vh to 0.
     const fadeOutProgress = clamp(rect.bottom / vh, 0, 1);
 
@@ -1488,18 +1523,18 @@ if (sceneScreen) {
         // each letter takes 40% of the progress to fully animate (linear progress first)
         const localP = clamp((titleProgress - delay) / 0.4, 0, 1);
         const p = easeOutCubic(localP); // ease the individual letter's motion
-        
+
         const rotateY = (1 - p) * -90;
         const rotateX = (1 - p) * 35; // slightly folded towards camera
         const translateZ = (1 - p) * 150; // starts closer to camera and pushes back into place
         const translateY = (1 - p) * -20; // starts slightly higher
         const skewY = (1 - p) * -15;
-        
+
         span.style.transform = `perspective(1000px) translate3d(0px, ${translateY}px, ${translateZ}px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) skewY(${skewY}deg)`;
         span.style.opacity = p.toFixed(3);
       });
     }
-    
+
     if (sigTextInner && useSimpleFade) {
       const p = easeOutCubic(textProgress);
       sigTextInner.style.clipPath = 'none';
@@ -1516,13 +1551,13 @@ if (sceneScreen) {
         const delay = (index / textSpans.length) * 0.6;
         const localP = clamp((textProgress - delay) / 0.4, 0, 1);
         const p = easeOutCubic(localP);
-        
+
         const rotateY = (1 - p) * -90;
         const rotateX = (1 - p) * 35;
         const translateZ = (1 - p) * 150;
         const translateY = (1 - p) * -20;
         const skewY = (1 - p) * -15;
-        
+
         span.style.transform = `perspective(1000px) translate3d(0px, ${translateY}px, ${translateZ}px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) skewY(${skewY}deg)`;
         span.style.opacity = p.toFixed(3);
       });
@@ -1550,34 +1585,36 @@ if (sceneScreen) {
         sigAccessibleBorder.style.strokeDashoffset = String(100 - (easeOutCubic(moveProgress) * 100));
       }
 
+      // Transform into ACCESSIBLE state
+      // Starts right after affordable block unmask finishes (-rect.top passes 1.45vh)
+      const accessibleProgress = clamp((-rect.top - (vh * 1.45)) / (vh * 0.4), 0, 1);
+
       // Transform into ACHIEVABLE state
-      // Starts right after accessible block unmask finishes (-rect.top passes 1.45vh)
-      const achieveProgress = clamp((-rect.top - (vh * 1.45)) / (vh * 0.4), 0, 1);
-      
-      // Transform into AFFORDABLE state
-      // Starts right after achievable block finishes (-rect.top passes 1.95vh)
-      const affordProgress = clamp((-rect.top - (vh * 1.95)) / (vh * 0.4), 0, 1);
-      
+      // Starts right after accessible block finishes (-rect.top passes 1.95vh)
+      const achieveProgress = clamp((-rect.top - (vh * 1.95)) / (vh * 0.4), 0, 1);
+
       if (sigAccessibleBg) {
-        sigAccessibleBg.style.opacity = (easeOutCubic(achieveProgress) - easeOutCubic(affordProgress)).toFixed(3);
-      }
-      
-      if (sigAccLayer) {
-        sigAccLayer.style.opacity = (1 - achieveProgress).toFixed(3);
-        sigAccLayer.style.transform = `scale(${1 + achieveProgress * 0.05})`;
-      }
-      
-      if (sigAchLayer) {
-        sigAchLayer.style.opacity = (achieveProgress - affordProgress).toFixed(3);
-        sigAchLayer.style.transform = `scale(${0.95 + achieveProgress * 0.05 + affordProgress * 0.05})`;
+        // The final ACHIEVABLE state uses white text, so keep the plum fill
+        // fading in with the last stage instead of fading it back out.
+        sigAccessibleBg.style.opacity = easeOutCubic(achieveProgress).toFixed(3);
       }
 
       if (sigAffLayer) {
-        sigAffLayer.style.opacity = affordProgress.toFixed(3);
-        sigAffLayer.style.transform = `scale(${0.95 + affordProgress * 0.05})`;
+        sigAffLayer.style.opacity = (1 - accessibleProgress).toFixed(3);
+        sigAffLayer.style.transform = `scale(${1 + accessibleProgress * 0.05})`;
       }
 
-      const isSectionLocked = moveProgress > 0 && affordProgress < 1;
+      if (sigAccLayer) {
+        sigAccLayer.style.opacity = (accessibleProgress - achieveProgress).toFixed(3);
+        sigAccLayer.style.transform = `scale(${0.95 + accessibleProgress * 0.05 + achieveProgress * 0.05})`;
+      }
+
+      if (sigAchLayer) {
+        sigAchLayer.style.opacity = achieveProgress.toFixed(3);
+        sigAchLayer.style.transform = `scale(${0.95 + achieveProgress * 0.05})`;
+      }
+
+      const isSectionLocked = moveProgress > 0 && achieveProgress < 1;
       sigSection.classList.toggle('is-pinned', isSectionLocked);
     }
   }
@@ -1860,9 +1897,10 @@ if ("IntersectionObserver" in window) {
 }
 
 updateSceneMetrics();
+renderDesignMobileCarousel();
 if (designCarousel3d) {
   designCarousel3d.addEventListener('pointerdown', on3dPointerDown);
-  designCarousel3d.addEventListener('touchstart', on3dPointerDown, {passive:false});
+  designCarousel3d.addEventListener('touchstart', on3dPointerDown, { passive: false });
 }
 scheduleDesignCarousel3dInit();
 
@@ -1919,23 +1957,23 @@ window.requestAnimationFrame(tick);
 })();
 
 // --- Service Title Staggered Reveal Animation (scroll-dependent) ---
-(function() {
+(function () {
   const serviceTitles = document.querySelectorAll('.service-title-animate');
   if (!serviceTitles.length) return;
-  
+
   const animatedTitles = new Set();
-  
+
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       const title = entry.target;
       const isVisible = entry.isIntersecting && entry.boundingClientRect.top < window.innerHeight && entry.boundingClientRect.bottom > 0;
-      
+
       if (isVisible && !animatedTitles.has(title)) {
         animatedTitles.add(title);
         const words = title.querySelectorAll('span');
         words.forEach((word, i) => {
           word.classList.remove('revealed');
-          
+
           setTimeout(() => {
             word.classList.add('revealed');
           }, i * 100 + Math.random() * 100);
@@ -1945,22 +1983,22 @@ window.requestAnimationFrame(tick);
       }
     });
   }, { threshold: 0, rootMargin: '0px 0px -10% 0px' });
-  
+
   serviceTitles.forEach(title => observer.observe(title));
 })();
 
 // --- Service Image Reveal Animation ---
-(function() {
+(function () {
   const images = document.querySelectorAll('.service-image-animate');
   if (!images.length) return;
-  
+
   const animatedImages = new Set();
-  
+
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       const img = entry.target;
       const isVisible = entry.isIntersecting && entry.boundingClientRect.top < window.innerHeight && entry.boundingClientRect.bottom > 0;
-      
+
       if (isVisible && !animatedImages.has(img)) {
         animatedImages.add(img);
         setTimeout(() => {
@@ -1971,24 +2009,24 @@ window.requestAnimationFrame(tick);
       }
     });
   }, { threshold: 0, rootMargin: '0px 0px -10% 0px' });
-  
+
   images.forEach(img => observer.observe(img));
 })();
 
 // --- Destination Tab Switching ---
-(function() {
+(function () {
   const tabs = document.querySelectorAll('.destination-tab');
   const maps = document.querySelectorAll('.destination-map');
-  
+
   if (!tabs.length || !maps.length) return;
-  
+
   tabs.forEach(tab => {
     tab.addEventListener('click', () => {
       const target = tab.dataset.tab;
-      
+
       tabs.forEach(t => t.classList.remove('active'));
       tab.classList.add('active');
-      
+
       maps.forEach(map => {
         map.classList.remove('active');
         if (map.classList.contains('destination-map--' + target)) {
@@ -2000,19 +2038,19 @@ window.requestAnimationFrame(tick);
 })();
 
 // --- Mobile Carousel Dots Sync ---
-(function() {
+(function () {
   const carousel = document.getElementById('services-mobile-carousel');
   const dots = document.querySelectorAll('#carousel-dots .carousel-dot');
-  
+
   if (!carousel || !dots.length) return;
-  
+
   carousel.addEventListener('scroll', () => {
     // Determine which card is in view
     const scrollLeft = carousel.scrollLeft;
     // We add a tiny offset to trigger the dot change slightly before perfectly centered
     const cardWidth = carousel.offsetWidth;
     const activeIndex = Math.round(scrollLeft / cardWidth);
-    
+
     dots.forEach((dot, index) => {
       if (index === activeIndex) {
         dot.classList.add('active');
@@ -2024,17 +2062,18 @@ window.requestAnimationFrame(tick);
 })();
 
 // --- Design Studio Mobile Carousel Dots Sync ---
-(function() {
+(function () {
   const carousel = document.getElementById('design-mobile-carousel');
-  const dots = document.querySelectorAll('#design-carousel-dots .carousel-dot');
-  
-  if (!carousel || !dots.length) return;
-  
+
+  if (!carousel) return;
+
   carousel.addEventListener('scroll', () => {
+    const dots = carousel.parentElement?.querySelectorAll('#design-carousel-dots .carousel-dot') || [];
+    if (!dots.length || !carousel.children.length) return;
     const scrollLeft = carousel.scrollLeft;
     const cardWidth = carousel.children[0].offsetWidth + parseInt(window.getComputedStyle(carousel).gap || 0);
     const activeIndex = Math.round(scrollLeft / cardWidth);
-    
+
     dots.forEach((dot, index) => {
       if (index === activeIndex) {
         dot.classList.add('active');

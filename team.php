@@ -29,7 +29,8 @@ $currentPage = 'team';
           <div class="hotspot-card" role="note" aria-hidden="true">
             <div class="hotspot-card__body">
               <div class="hotspot-card__name">Vandana Mohan</div>
-              <div class="hotspot-card__bio">Founder &amp; Creative Director - crafting luxury weddings and bespoke experiences since 1989.</div>
+              <div class="hotspot-card__bio">Founder &amp; Creative Director - crafting luxury weddings
+                and bespoke experiences since 1989.</div>
             </div>
           </div>
         </div>
@@ -37,7 +38,10 @@ $currentPage = 'team';
           <section class="team-intro" aria-label="Team introduction">
             <h2>The Minds Behind the Magic</h2>
             <p>
-              We are a collective of architects, designers, and logistical wizards who believe that no detail is too small and no dream is too big. While our legacy is built on decades of experience, our daily fuel is the spark of a new idea. We don't just plan events; we build worlds.
+              We are a collective of architects, designers, and logistical wizards who believe that no
+              detail is too small and no dream is too big. While our legacy is built on decades of
+              experience, our daily fuel is the spark of a new idea. We don't just plan events; we build
+              worlds.
             </p>
           </section>
         </div>
