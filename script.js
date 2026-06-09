@@ -137,12 +137,12 @@ const designStudioImages = [
   { src: "./assets/design-studio/15.jpeg", alt: "Design Studio styling concept preview" },
   { src: "./assets/design-studio/16.jpg", alt: "Design Studio event styling mockup" },
   { src: "./assets/design-studio/17.jpg", alt: "Design Studio floral workshop scene" },
-  //{ src: "./assets/design-studio/18.jpg", alt: "Design Studio staging and decor composition" },
+  { src: "./assets/design-studio/24.jpg", alt: "Design Studio staging and decor composition" },
   { src: "./assets/design-studio/19.jpg", alt: "Design Studio installation planning detail" },
   { src: "./assets/design-studio/20.JPG", alt: "Design Studio visual concept board" },
   { src: "./assets/design-studio/8.jpg", alt: "Design Studio floral build" },
-  { src: "./assets/design-studio/12.jpg", alt: "Design Studio ceremony installation" },
-  { src: "./assets/design-studio/10.jpg", alt: "Design Studio event detail" },
+  { src: "./assets/design-studio/23.jpeg", alt: "Design Studio ceremony installation" },
+  { src: "./assets/design-studio/21.jpg", alt: "Design Studio event detail" },
   { src: "./assets/design-studio/4.jpg", alt: "Design Studio tablescape concept" },
   { src: "./assets/design-studio/5.jpg", alt: "Design Studio decor styling sample" },
   { src: "./assets/design-studio/6.jpg", alt: "Design Studio fabric and floral arrangement" },
@@ -150,7 +150,7 @@ const designStudioImages = [
   { src: "./assets/design-studio/1.jpg", alt: "Design Studio venue styling board" },
   { src: "./assets/design-studio/9.jpg", alt: "Design Studio stage composition" },
   { src: "./assets/design-studio/3.jpg", alt: "Design Studio event environment study" },
-  { src: "./assets/design-studio/11.jpg", alt: "Design Studio centerpiece detail" },
+  { src: "./assets/design-studio/22.jpg", alt: "Design Studio centerpiece detail" },
   { src: "./assets/design-studio/2.jpg", alt: "Design Studio lighting and floral test" },
 ];
 
@@ -344,6 +344,8 @@ function renderDesignCarousel3d() {
       img.alt = imgData.alt;
 
       container.appendChild(img);
+      container.classList.toggle('is-portrait', Boolean(imgData.isPortrait));
+      container.classList.toggle('is-landscape', !imgData.isPortrait);
 
       container.addEventListener('click', () => {
         const role = container.getAttribute('data-role');
@@ -362,6 +364,8 @@ function renderDesignCarousel3d() {
       img.src = imgData.preloaded ? imgData.preloaded.src : imgData.src;
       img.alt = imgData.alt;
       container.className = 'carousel3d-slide ' + roles[i];
+      container.classList.toggle('is-portrait', Boolean(imgData.isPortrait));
+      container.classList.toggle('is-landscape', !imgData.isPortrait);
       container.setAttribute('data-role', roles[i]);
     });
   }
@@ -375,6 +379,10 @@ function preloadDesignStudioImages() {
     preloaded.loading = 'eager';
     preloaded.src = imageData.src;
     preloaded.alt = imageData.alt;
+    preloaded.addEventListener('load', () => {
+      imageData.isPortrait = preloaded.naturalHeight > preloaded.naturalWidth;
+      renderDesignCarousel3d();
+    }, { once: true });
     imageData.preloaded = preloaded;
   });
 }
