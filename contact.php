@@ -61,8 +61,9 @@ $currentPage = 'contact';
                 </div>
 
                 <div class="contact-form-area">
-                    <form class="contact-form boxed" action="#" method="post" aria-label="Contact form" data-mailto-form
-                        data-mailto-recipient="contact@wdcindia.com">
+                    <form class="contact-form boxed" action="./form-handler.php" method="post" aria-label="Contact form" data-live-form>
+                        <input type="hidden" name="form_name" value="Contact Page Form" />
+                        <input type="hidden" name="website" value="" tabindex="-1" autocomplete="off" />
                         <div class="row two-cols">
                             <div>
                                 <label for="email">Your E-mail</label>

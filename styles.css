@@ -3691,8 +3691,28 @@ body.services-page .section-faq {
   color: rgba(255, 255, 255, 0.92);
 }
 
+.form-status[data-state="success"] {
+  color: #c9f7d8;
+}
+
+.form-status[data-state="error"] {
+  color: #ffd6d6;
+}
+
+.form-status[data-state="pending"] {
+  color: rgba(255, 255, 255, 0.92);
+}
+
 .contact-form.boxed .form-status {
   color: rgba(84, 26, 43, 0.82);
+}
+
+.contact-form.boxed .form-status[data-state="success"] {
+  color: #0f7a42;
+}
+
+.contact-form.boxed .form-status[data-state="error"] {
+  color: #a32033;
 }
 
 .section-contact__details {

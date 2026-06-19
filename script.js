@@ -2094,56 +2094,69 @@ window.requestAnimationFrame(tick);
 
 // --- Contact Forms ---
 (function () {
-  const forms = document.querySelectorAll("[data-mailto-form]");
+  const forms = document.querySelectorAll("[data-live-form]");
   if (!forms.length) return;
 
   forms.forEach((form) => {
     const statusNode = form.querySelector(".form-status");
     const submitButton = form.querySelector('button[type="submit"]');
-    const recipient = form.dataset.mailtoRecipient || "contact@wdcindia.com";
 
-    function setStatus(message) {
+    function setStatus(message, state = "") {
       if (!statusNode) return;
       statusNode.textContent = message;
+      if (state) {
+        statusNode.dataset.state = state;
+      } else {
+        delete statusNode.dataset.state;
+      }
     }
 
-    form.addEventListener("submit", (event) => {
+    form.addEventListener("submit", async (event) => {
       event.preventDefault();
 
       if (!form.reportValidity()) {
-        setStatus("Please complete all required fields before sending.");
+        setStatus("Please complete all required fields before sending.", "error");
         return;
       }
 
       const formData = new FormData(form);
-      const email = String(formData.get("email") || "").trim();
-      const subject = String(formData.get("subject") || "").trim();
-      const message = String(formData.get("message") || "").trim();
-
-      const body = [
-        `From: ${email}`,
-        "",
-        message,
-      ].join("\n");
-
-      const mailtoUrl =
-        `mailto:${encodeURIComponent(recipient)}` +
-        `?subject=${encodeURIComponent(subject)}` +
-        `&body=${encodeURIComponent(body)}`;
-
-      setStatus("Opening your email app with the message ready to send.");
+      formData.set("source_url", window.location.href);
+      setStatus("Sending your message...", "pending");
 
       if (submitButton) {
         submitButton.disabled = true;
       }
 
-      window.location.href = mailtoUrl;
+      try {
+        const response = await fetch(form.action || "./form-handler.php", {
+          method: "POST",
+          body: formData,
+          headers: {
+            Accept: "application/json",
+          },
+        });
 
-      window.setTimeout(() => {
+        const payload = await response.json().catch(() => ({
+          ok: false,
+          message: "We could not understand the server response.",
+        }));
+
+        if (!response.ok || !payload.ok) {
+          throw new Error(payload.message || "We could not send your message right now.");
+        }
+
+        form.reset();
+        setStatus(payload.message || "Thank you. Your message has been sent successfully.", "success");
+      } catch (error) {
+        setStatus(
+          error instanceof Error ? error.message : "We could not send your message right now.",
+          "error",
+        );
+      } finally {
         if (submitButton) {
           submitButton.disabled = false;
         }
-      }, 1200);
+      }
     });
   });
 })();

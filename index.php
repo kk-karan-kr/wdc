@@ -299,7 +299,9 @@ $isHomePage = true;
         <div class="section-contact__form" data-reveal>
           <h2>Contact Us</h2>
 
-          <form class="contact-form" data-mailto-form data-mailto-recipient="contact@wdcindia.com">
+          <form class="contact-form" action="./form-handler.php" method="post" data-live-form>
+            <input type="hidden" name="form_name" value="Homepage Contact Form" />
+            <input type="hidden" name="website" value="" tabindex="-1" autocomplete="off" />
             <label>
               <span>Your E-mail</span>
               <input type="email" name="email" placeholder="Your E-mail" autocomplete="email" required />
