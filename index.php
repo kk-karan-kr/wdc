@@ -1,6 +1,9 @@
 <?php
 $currentPage = 'home';
 $isHomePage = true;
+require_once __DIR__ . '/mail-config-loader.php';
+$mailConfig = wdc_load_mail_config();
+$turnstileSiteKey = (string) wdc_mail_config_value($mailConfig, ['turnstile_site_key', 'turnstile_site'], '');
 ?>
 <!doctype html>
 <html lang="en">
@@ -13,6 +16,9 @@ $isHomePage = true;
   <meta name="description"
     content="Plan your dream wedding with WDC India. Expert luxury wedding planners delivering bespoke design, guest experiences, global logistics, and seamless events." />
   <link rel="preload" as="image" href="./assets/changes/WDC_BACKGROUND.png" fetchpriority="high" />
+  <?php if ($turnstileSiteKey !== ''): ?>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  <?php endif; ?>
   <link rel="icon" href="./assets/changes/wdc-favicon-transparent.png" sizes="any" />
   <link rel="stylesheet" href="./styles.css" />
 </head>
@@ -317,6 +323,13 @@ $isHomePage = true;
               <span>Message</span>
               <textarea name="message" rows="5" placeholder="Message" required></textarea>
             </label>
+
+            <?php if ($turnstileSiteKey !== ''): ?>
+              <div class="form-turnstile">
+                <div class="cf-turnstile" data-sitekey="<?= htmlspecialchars($turnstileSiteKey, ENT_QUOTES, 'UTF-8') ?>"
+                  data-theme="light" data-size="flexible"></div>
+              </div>
+            <?php endif; ?>
 
             <button type="submit">Send Mail</button>
             <p class="form-status" aria-live="polite"></p>

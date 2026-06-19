@@ -1,5 +1,8 @@
 <?php
 $currentPage = 'contact';
+require_once __DIR__ . '/mail-config-loader.php';
+$mailConfig = wdc_load_mail_config();
+$turnstileSiteKey = (string) wdc_mail_config_value($mailConfig, ['turnstile_site_key', 'turnstile_site'], '');
 ?>
 <!doctype html>
 <html lang="en">
@@ -8,6 +11,9 @@ $currentPage = 'contact';
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Contact Us - The Wedding Design Company</title>
+    <?php if ($turnstileSiteKey !== ''): ?>
+        <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    <?php endif; ?>
     <link rel="icon" href="./assets/changes/wdc-favicon-transparent.png" sizes="any" />
     <link rel="stylesheet" href="./styles.css" />
 </head>
@@ -82,6 +88,14 @@ $currentPage = 'contact';
                             <textarea id="message" name="message" rows="6" placeholder="Type your message here..."
                                 required></textarea>
                         </div>
+
+                        <?php if ($turnstileSiteKey !== ''): ?>
+                            <div class="form-turnstile">
+                                <div class="cf-turnstile"
+                                    data-sitekey="<?= htmlspecialchars($turnstileSiteKey, ENT_QUOTES, 'UTF-8') ?>"
+                                    data-theme="light" data-size="flexible"></div>
+                            </div>
+                        <?php endif; ?>
 
                         <button class="btn-primary boxed" type="submit">SEND MAIL</button>
                         <p class="form-status" aria-live="polite"></p>

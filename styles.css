@@ -3691,6 +3691,15 @@ body.services-page .section-faq {
   color: rgba(255, 255, 255, 0.92);
 }
 
+.form-turnstile {
+  width: 100%;
+  margin: 0.2rem 0 0.35rem;
+}
+
+.form-turnstile .cf-turnstile {
+  width: 100%;
+}
+
 .form-status[data-state="success"] {
   color: #c9f7d8;
 }
