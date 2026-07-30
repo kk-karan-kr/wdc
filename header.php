@@ -3,6 +3,7 @@ $currentPage = $currentPage ?? '';
 $isServicesSection = in_array($currentPage, ['services', 'destinations'], true);
 $servicesLandingHref = $currentPage === 'services' ? '#services-section' : 'services.php';
 $serviceLinkPrefix = $currentPage === 'services' ? '#' : 'services.php#';
+$galleryHref = $currentPage === 'home' ? '#design-section' : 'index.php#design-section';
 ?>
 <header class="site-header" role="banner" aria-label="Top header">
   <div class="site-header__brand" aria-hidden="false">
@@ -19,7 +20,7 @@ $serviceLinkPrefix = $currentPage === 'services' ? '#' : 'services.php#';
   </button>
 
   <nav id="primaryNavigation" class="site-header__nav" role="navigation" aria-label="Primary navigation">
-    <a href="index.php#top" <?= $currentPage === 'home' ? ' class="is-active"' : '' ?>>Home</a>
+    <a href="index.php#top" data-scroll-link="top" <?= $currentPage === 'home' ? ' class="is-active"' : '' ?>>Home</a>
     <a href="team.php" <?= $currentPage === 'team' ? ' class="is-active"' : '' ?>>Our Team</a>
     <div class="nav-item nav-services">
       <a href="<?= $servicesLandingHref ?>" <?= $isServicesSection ? 'class="is-active"' : '' ?>
@@ -44,7 +45,8 @@ $serviceLinkPrefix = $currentPage === 'services' ? '#' : 'services.php#';
             <?= $currentPage === 'destinations' ? ' class="is-active"' : '' ?>>Destinations</a></li>
       </ul>
     </div>
-    <a href="news.php" <?= $currentPage === 'news' ? ' class="is-active"' : '' ?>>IN THE NEWS</a>
+    <a href="<?= $galleryHref ?>" data-scroll-link="design-section">Gallery</a>
+    <a href="news.php" <?= $currentPage === 'news' ? ' class="is-active"' : '' ?>>Media</a>
     <a href="contact.php" <?= $currentPage === 'contact' ? ' class="is-active"' : '' ?>>Contact Us</a>
   </nav>
 </header>

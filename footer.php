@@ -20,7 +20,7 @@
       <a href="team.php">Team</a>
       <a href="index.php#design-section">Gallery</a>
       <a href="contact.php#contact-section">Contact Us</a>
-      <a href="index.php#signature-section">Signature</a>
+      <a href="index.php#atelier-section">Wedding Atelier</a>
     </div>
 
     <div>

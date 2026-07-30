@@ -81,7 +81,7 @@ $turnstileSiteKey = (string) wdc_mail_config_value($mailConfig, ['turnstile_site
 
             <!-- Wedding Atelier hotspot + overlay -->
             <a class="atelier-hotspot hero-link-hotspot" data-title="Wedding Atelier" data-hotspot="atelier"
-              data-target="design-section" href="#design-section"
+              data-target="atelier-section" href="#atelier-section"
               aria-label="Jump to Wedding Atelier content"></a>
             <img class="scene-foreground__img--atelier"
               data-hero-overlay-src="./assets/changes/OVERLAY/WDC_WEDDINGATELIER.svg"
@@ -131,47 +131,44 @@ $turnstileSiteKey = (string) wdc_mail_config_value($mailConfig, ['turnstile_site
       </div>
     </section>
 
-    <section class="section-signature-weddings" id="signature-section" data-section>
-      <div class="signature-weddings-bg" id="signatureWeddingsBg"></div>
-      <div class="signature-weddings-intro section-inner">
-        <div class="signature-weddings-intro-content" id="sigIntroContent">
-          <h2 class="signature-weddings-title">
-            <span class="unmask-text" id="sigTitleInner">SIGNATURE WEDDINGS</span>
-          </h2>
-          <p class="signature-weddings-text">
-            <span class="unmask-text" id="sigTextInner">
-              From the design studio of WDC, we present Signature Weddings by The Wedding Design Company.
-            </span>
-          </p>
-        </div>
-        <div class="signature-weddings-accessible" id="sigAccessible">
-          <svg class="accessible-border-svg" preserveAspectRatio="none">
-            <rect class="accessible-border-rect" id="sigAccessibleBorder" x="0" y="0" width="100%"
-              height="100%" rx="20" pathLength="100" />
-          </svg>
-          <div class="accessible-bg-fill" id="sigAccessibleBg"></div>
-          <div class="affordable-content-layer" id="sigAffLayer">
-            <h3>AFFORDABLE</h3>
-            <p>
-              All our creative juices have been put to work to create your
-              dream wedding at your dream budget or what we call
-              'affordable luxury'.
-            </p>
-          </div>
-          <div class="accessible-content-layer" id="sigAccLayer">
-            <h3>ACCESSIBLE</h3>
-            <p>
-              The Wedding Design Company will now be accessible to anyone who
-              is planning a wedding and wants something out of the ordinary.
-            </p>
-          </div>
-          <div class="achievable-content-layer" id="sigAchLayer">
-            <h3>ACHIEVABLE</h3>
-            <p>
-              Your dreams are achievable thanks to the fabulous team that is
-              behind Signature Weddings.
-            </p>
-          </div>
+    <section class="content-section section-wedding-atelier" id="atelier-section" data-section>
+      <div class="section-inner section-wedding-atelier__inner">
+        <div class="section-wedding-atelier__stage" data-reveal>
+          <figure class="section-wedding-atelier__image section-wedding-atelier__image--left">
+            <img src="./assets/changes/Atelier-1.png"
+              alt="Wedding Atelier concept installation with crystal chandeliers" loading="lazy"
+              decoding="async" />
+          </figure>
+
+          <article class="section-wedding-atelier__card">
+            <div class="section-wedding-atelier__card-top">
+              <!-- <span class="section-wedding-atelier__eyebrow">Seasonal Concepts</span> -->
+              <h2>THE WEDDING<br>ATELIER</h2>
+            </div>
+            <div class="section-wedding-atelier__card-body">
+              <p>
+                Founded in 2012, The Wedding Atelier was born from a desire to look beyond the wedding
+                of
+                the moment and imagine the wedding of tomorrow.
+              </p>
+              <p>
+                Conceived as The Wedding Design Company&apos;s annual trend forecast, it became a canvas
+                for
+                experimentation, innovation and artistic expression. Each edition of The Wedding Atelier
+                presented a carefully curated vision of the season ahead, weaving together global
+                influences,
+                evolving cultural sensibilities and exceptional craftsmanship. From reimagining timeless
+                traditions to introducing entirely new visual languages, it serves as both a source of
+                inspiration and a reflection of the changing aspirations of modern couples.
+              </p>
+            </div>
+            <div class="section-wedding-atelier__card-bottom" aria-hidden="true"></div>
+          </article>
+
+          <figure class="section-wedding-atelier__image section-wedding-atelier__image--right">
+            <img src="./assets/changes/Atelier-2.png" alt="Wedding Atelier floral dining concept"
+              loading="lazy" decoding="async" />
+          </figure>
         </div>
       </div>
     </section>
@@ -326,7 +323,8 @@ $turnstileSiteKey = (string) wdc_mail_config_value($mailConfig, ['turnstile_site
 
             <?php if ($turnstileSiteKey !== ''): ?>
               <div class="form-turnstile">
-                <div class="cf-turnstile" data-sitekey="<?= htmlspecialchars($turnstileSiteKey, ENT_QUOTES, 'UTF-8') ?>"
+                <div class="cf-turnstile"
+                  data-sitekey="<?= htmlspecialchars($turnstileSiteKey, ENT_QUOTES, 'UTF-8') ?>"
                   data-theme="light" data-size="flexible"></div>
               </div>
             <?php endif; ?>

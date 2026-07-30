@@ -56,7 +56,7 @@ $currentPage = 'news';
           <section class="news-year" data-reveal aria-labelledby="news-year-2026">
             <div class="news-year__label">
               <h3 id="news-year-2026">2026</h3>
-              <p>4 features</p>
+              <p>5 features</p>
             </div>
             <div class="section-news__grid news-year__grid">
               <a href="https://www.manifestmagazine.in/trends-culture/zeitgeist/top-wedding-planners-on-the-secret-to-keeping-a-wedding-intimate-but-also-grand"
@@ -102,6 +102,18 @@ $currentPage = 'news';
                 <div>
                   <span class="news-card-meta">Robb Report &bull; 2026</span>
                   <h4 class="news-card-title">A wedding to remember</h4>
+                </div>
+                <span class="news-card-link">Read Article <span
+                    aria-hidden="true">&rsaquo;</span></span>
+              </a>
+              <a href="https://luxe.outlookindia.com/people/the-indian-wedding-planners-who-can-pull-off-taylor-swifts-usd-20-mn-celebration"
+                class="news-card" target="_blank" rel="noreferrer noopener"
+                aria-label="Open Outlook Luxe 2026 article in a new tab">
+                <div>
+                  <span class="news-card-meta">Outlook Luxe &bull; 2026</span>
+                  <h4 class="news-card-title">
+                    The Indian wedding planners who can pull off Taylor Swift&apos;s USD 20 Mn celebration
+                  </h4>
                 </div>
                 <span class="news-card-link">Read Article <span
                     aria-hidden="true">&rsaquo;</span></span>
